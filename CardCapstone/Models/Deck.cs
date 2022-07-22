@@ -1,26 +1,22 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace CardCapstone.Models
 {
-    public class Card
+    public class Deck
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public string ImageLocation { get; set; }
+        public int DeckCode { get; set; }
 
-        public int Hp { get; set; }
+        public int UserId { get; set; }
 
-        public int Atk { get; set; }
-
-        public int Mana { get; set; }
-
-        public int CardTypeId { get; set; }
-
+        public List<Card> DeckCards { get; set; }
 
     }
 }
