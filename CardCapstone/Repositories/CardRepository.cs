@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using CardCapstone.Models;
+using CardCapstone.Utils;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
-using CardCapstone.Models;
 
 namespace CardCapstone.Repositories
 {
-    public class CardRepository : BaseRepository
+    public class CardRepository : BaseRepository, ICardRepository
     {
         public CardRepository(IConfiguration configuration) : base(configuration) { }
         public List<Card> GetAll()
@@ -15,24 +16,38 @@ namespace CardCapstone.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT id, name FROM Card ORDER BY name";
+                    cmd.CommandText = @"
+                    SELECT card.id, card.name, imagelocation, hp, atk, mana, description, card.cardtypeid, ct.name as 'ct-name' 
+                    from card 
+                    join cardtype ct on card.CardTypeId = ct.Id";
                     var reader = cmd.ExecuteReader();
 
-                    var categories = new List<Card>();
+                    var cards = new List<Card>();
 
                     while (reader.Read())
                     {
-                        categories.Add(new Card()
+                        cards.Add(new Card()
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("id")),
                             Name = reader.GetString(reader.GetOrdinal("name")),
-                            
+                            ImageLocation = reader.GetString(reader.GetOrdinal("imagelocation")),
+                            Mana = DbUtils.GetInt(reader, "mana"),
+                            Atk = DbUtils.GetInt(reader, "atk"),
+                            Hp = DbUtils.GetInt(reader, "hp"),
+                            Description = reader.GetString(reader.GetOrdinal("description")),
+                            CardTypeId = DbUtils.GetInt(reader, "cardtypeid"),
+                            CardType = new CardType()
+                            {
+                                Id = DbUtils.GetInt(reader, "cardtypeid"),
+                                Name = DbUtils.GetString(reader, "ct-name")
+                            }
+
                         });
                     }
 
                     reader.Close();
 
-                    return categories;
+                    return cards;
                 }
             }
         }
@@ -46,9 +61,10 @@ namespace CardCapstone.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT Id, [Name]
-                        FROM Card
-                        WHERE Id = @id";
+                        SELECT card.id, card.name, imagelocation, hp, atk, mana, description, card.cardtypeid, ct.name as 'ct-name' 
+                        from card 
+                        join cardtype ct on card.CardTypeId = ct.Id
+                        where card.id = @id ";
 
                     cmd.Parameters.AddWithValue("@id", id);
 
@@ -58,8 +74,19 @@ namespace CardCapstone.Repositories
                         {
                             Card card = new Card()
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                                Name = reader.GetString(reader.GetOrdinal("Name"))
+                                Id = reader.GetInt32(reader.GetOrdinal("id")),
+                                Name = reader.GetString(reader.GetOrdinal("name")),
+                                ImageLocation = reader.GetString(reader.GetOrdinal("imagelocation")),
+                                Mana = DbUtils.GetInt(reader, "mana"),
+                                Atk = DbUtils.GetInt(reader, "atk"),
+                                Hp = DbUtils.GetInt(reader, "hp"),
+                                Description = reader.GetString(reader.GetOrdinal("description")),
+                                CardTypeId = DbUtils.GetInt(reader, "cardtypeid"),
+                                CardType = new CardType()
+                                {
+                                    Id = DbUtils.GetInt(reader, "cardtypeid"),
+                                    Name = DbUtils.GetString(reader, "ct-name")
+                                }
                             };
 
                             return card;
@@ -79,12 +106,18 @@ namespace CardCapstone.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    INSERT INTO Card ([Name])
+                    INSERT INTO Card ([Name], [ImageLocation], [Hp], [Atk], [Mana], [Description], [CardTypeId])
                     OUTPUT INSERTED.ID
-                    VALUES (@name);
+                    VALUES (@name, @imagelocation, @hp, @atk, @mana, @description, @cardTypeId);
                 ";
 
                     cmd.Parameters.AddWithValue("@name", card.Name);
+                    DbUtils.AddParameter(cmd, "@imagelocation", card.ImageLocation);
+                    DbUtils.AddParameter(cmd, "@hp", card.Hp);
+                    DbUtils.AddParameter(cmd, "@atk", card.Atk);
+                    DbUtils.AddParameter(cmd, "@mana", card.Mana);
+                    DbUtils.AddParameter(cmd, "@description", card.Description);
+                    DbUtils.AddParameter(cmd, "@cardTypeId", card.CardTypeId);
 
                     int id = (int)cmd.ExecuteScalar();
 
@@ -93,28 +126,8 @@ namespace CardCapstone.Repositories
             }
         }
 
-        public void DeleteCard(int cardId)
-        {
-            using (SqlConnection conn = Connection)
-            {
-                conn.Open();
 
-                using (SqlCommand cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = @"
-                            UPDATE Post
-                            SET CardId = NULL
-                            WHERE CardId = @id
-                            DELETE FROM Card
-                            WHERE Id = @id;
-                        ";
-
-                    cmd.Parameters.AddWithValue("@id", cardId);
-
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
+        // implement deactivating a card?
 
         public void UpdateCard(Card card)
         {
@@ -125,10 +138,23 @@ namespace CardCapstone.Repositories
                 {
                     cmd.CommandText = @"UPDATE Card
                                         SET 
-                                        Name = @name
+                                        Name = @name,
+                                        ImageLocation = @imagelocation,
+                                        Hp = @hp,
+                                        Atk = @atk,
+                                        Mana = @mana,
+                                        Description = @description,
+                                        CardTypeId = @cardTypeId
                                         WHERE Id = @id";
                     cmd.Parameters.AddWithValue("@name", card.Name);
                     cmd.Parameters.AddWithValue("@id", card.Id);
+                    DbUtils.AddParameter(cmd, "@imagelocation", card.ImageLocation);
+                    DbUtils.AddParameter(cmd, "@hp", card.Hp);
+                    DbUtils.AddParameter(cmd, "@atk", card.Atk);
+                    DbUtils.AddParameter(cmd, "@mana", card.Mana);
+                    DbUtils.AddParameter(cmd, "@description", card.Description);
+                    DbUtils.AddParameter(cmd, "@cardTypeId", card.CardTypeId);
+
 
                     cmd.ExecuteNonQuery();
 

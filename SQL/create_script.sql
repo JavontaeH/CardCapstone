@@ -52,7 +52,7 @@ GO
 
 CREATE TABLE [CardType] (
   [Id] int PRIMARY KEY IDENTITY(1, 1),
-  [CardType] nvarchar(255) NOT NULL
+  [Name] nvarchar(255) NOT NULL
 )
 GO
 

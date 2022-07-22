@@ -14,14 +14,16 @@ namespace CardCapstone.Models
         public string ImageLocation { get; set; }
 
         public string Description { get; set; }
+        public int Mana { get; set; }
+        public int Atk { get; set; }
 
         public int Hp { get; set; }
 
-        public int Atk { get; set; }
 
-        public int Mana { get; set; }
 
         public int CardTypeId { get; set; }
+
+        public CardType CardType { get; set; }
 
 
     }

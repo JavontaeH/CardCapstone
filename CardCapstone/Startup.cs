@@ -31,6 +31,8 @@ namespace CardCapstone
         {
 
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
+            services.AddTransient<ICardRepository, CardRepository>();
+            // services.AddTransient<IDeckRepository, DeckRepository>();
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";

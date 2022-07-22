@@ -9,7 +9,7 @@ set identity_insert [UserProfile] off
 
 
 set identity_insert [CardType] on 
-insert into [CardType] ([Id], [CardType])
+insert into [CardType] ([Id], [Name])
 values (1, 'Normal')
 set identity_insert [CardType] off
 
