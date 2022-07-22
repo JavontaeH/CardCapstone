@@ -14,7 +14,8 @@ namespace CardCapstone.Models
         public string FirebaseUserId { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(12)]
+        [MinLength(3)]
         public string DisplayName { get; set; }
 
         [Required]
