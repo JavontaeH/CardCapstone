@@ -15,8 +15,8 @@ set identity_insert [CardType] off
 
 
 set identity_insert [Card] on 
-insert into [Card] ([Id], [Name],  [ImageLocation], [Hp], [Atk], [Mana], [CardTypeId])
-values (1, 'temp card', 'not_implemented', 4, 5, 4, 1)
+insert into [Card] ([Id], [Name],  [ImageLocation], [Description], [Hp], [Atk], [Mana], [CardTypeId])
+values (1, 'temp card', 'not_implemented', 'temp card info', 4, 5, 4, 1)
 set identity_insert [Card] off
 
 set identity_insert [Deck] on 
