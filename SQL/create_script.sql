@@ -31,7 +31,7 @@ GO
 CREATE TABLE [Deck] (
   [Id] int PRIMARY KEY IDENTITY(1, 1),
   [Name] nvarchar(255) NOT NULL,
-  [DeckCode] int NOT NULL,
+  [DeckCode] nvarchar(255) NOT NULL,
   [UserId] int NOT NULL
 
   CONSTRAINT UQ_DeckCode UNIQUE(DeckCode)

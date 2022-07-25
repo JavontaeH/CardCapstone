@@ -162,5 +162,96 @@ namespace CardCapstone.Repositories
             }
         }
 
+        public List<Card> TextSearchForCard(string query)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    SELECT card.id, card.name, imagelocation, hp, atk, mana, description, card.cardtypeid, ct.name as 'ct-name' 
+                    from card 
+                    join cardtype ct on card.CardTypeId = ct.Id
+                    where card.name like @query OR card.description like @query";
+                    DbUtils.AddParameter(cmd, "@query", $"%{query}%");
+                    var reader = cmd.ExecuteReader();
+
+                    var cards = new List<Card>();
+
+                    while (reader.Read())
+                    {
+                        cards.Add(new Card()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("id")),
+                            Name = reader.GetString(reader.GetOrdinal("name")),
+                            ImageLocation = reader.GetString(reader.GetOrdinal("imagelocation")),
+                            Mana = DbUtils.GetInt(reader, "mana"),
+                            Atk = DbUtils.GetInt(reader, "atk"),
+                            Hp = DbUtils.GetInt(reader, "hp"),
+                            Description = reader.GetString(reader.GetOrdinal("description")),
+                            CardTypeId = DbUtils.GetInt(reader, "cardtypeid"),
+                            CardType = new CardType()
+                            {
+                                Id = DbUtils.GetInt(reader, "cardtypeid"),
+                                Name = DbUtils.GetString(reader, "ct-name")
+                            }
+
+                        });
+                    }
+
+                    reader.Close();
+
+                    return cards;
+                }
+            }
+        }
+
+
+        public List<Card> ManaSearchForCard(int mana)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    SELECT card.id, card.name, imagelocation, hp, atk, mana, description, card.cardtypeid, ct.name as 'ct-name' 
+                    from card 
+                    join cardtype ct on card.CardTypeId = ct.Id
+                    where card.mana = @mana";
+                    DbUtils.AddParameter(cmd, "@mana", mana);
+                    var reader = cmd.ExecuteReader();
+
+                    var cards = new List<Card>();
+
+                    while (reader.Read())
+                    {
+                        cards.Add(new Card()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("id")),
+                            Name = reader.GetString(reader.GetOrdinal("name")),
+                            ImageLocation = reader.GetString(reader.GetOrdinal("imagelocation")),
+                            Mana = DbUtils.GetInt(reader, "mana"),
+                            Atk = DbUtils.GetInt(reader, "atk"),
+                            Hp = DbUtils.GetInt(reader, "hp"),
+                            Description = reader.GetString(reader.GetOrdinal("description")),
+                            CardTypeId = DbUtils.GetInt(reader, "cardtypeid"),
+                            CardType = new CardType()
+                            {
+                                Id = DbUtils.GetInt(reader, "cardtypeid"),
+                                Name = DbUtils.GetString(reader, "ct-name")
+                            }
+
+                        });
+                    }
+
+                    reader.Close();
+
+                    return cards;
+                }
+            }
+        }
+
     }
 }

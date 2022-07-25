@@ -12,9 +12,11 @@ namespace CardCapstone.Models
 
         public string Name { get; set; }
 
-        public int DeckCode { get; set; }
+        public string DeckCode { get; set; }
 
         public int UserId { get; set; }
+
+        public UserProfile User { get; set; }
 
         public List<Card> DeckCards { get; set; }
 

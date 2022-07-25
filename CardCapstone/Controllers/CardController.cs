@@ -32,6 +32,20 @@ namespace CardCapstone.Controllers
             return Ok(card);
         }
 
+        [HttpGet("textsearch")]
+        public IActionResult TextSearch(string q)
+        {
+            return Ok(_cardRepository.TextSearchForCard(q));
+        }
+
+
+        [HttpGet("manasearch")]
+        public IActionResult ManaSearch(int m)
+        {
+            return Ok(_cardRepository.ManaSearchForCard(m));
+        }
+
+
 
         [HttpPost]
         public IActionResult Post(Card card)

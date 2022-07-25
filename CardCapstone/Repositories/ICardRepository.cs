@@ -9,5 +9,10 @@ namespace CardCapstone.Repositories
         List<Card> GetAll();
         Card GetCardById(int id);
         void UpdateCard(Card card);
+
+        List<Card> TextSearchForCard(string query);
+
+        List<Card> ManaSearchForCard(int mana);
+
     }
 }
