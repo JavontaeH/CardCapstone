@@ -215,11 +215,22 @@ namespace CardCapstone.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"
+                    if (mana < 7)
+                    {
+                        cmd.CommandText = @"
                     SELECT card.id, card.name, imagelocation, hp, atk, mana, description, card.cardtypeid, ct.name as 'ct-name' 
                     from card 
                     join cardtype ct on card.CardTypeId = ct.Id
                     where card.mana = @mana";
+                    }
+                    else if (mana == 7)
+                    {
+                        cmd.CommandText = @"
+                    SELECT card.id, card.name, imagelocation, hp, atk, mana, description, card.cardtypeid, ct.name as 'ct-name' 
+                    from card 
+                    join cardtype ct on card.CardTypeId = ct.Id
+                    where card.mana = @mana OR card.mana > @mana";
+                    }
                     DbUtils.AddParameter(cmd, "@mana", mana);
                     var reader = cmd.ExecuteReader();
 

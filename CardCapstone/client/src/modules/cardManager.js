@@ -11,3 +11,7 @@ export const textSearchCards = (query) => {
 export const manaSearchCards = (mana) => {
   return fetch(`${baseUrl}/manasearch?m=${mana}`);
 };
+
+export const getCardById = (id) => {
+  return fetch(`${baseUrl}/${id}`);
+};

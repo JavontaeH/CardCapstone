@@ -1,7 +1,9 @@
 const baseUrl = "/api/Deck";
 
 export const getAllUserDecks = (id) => {
-  return fetch(`${baseUrl}/GetAllUserDecks/${id}`);
+  return fetch(`${baseUrl}/GetAllUserDecks/${id}`).then((response) =>
+    response.json()
+  );
 };
 
 export const getDeckById = (id) => {
@@ -21,6 +23,16 @@ export const editDeck = (deck) => {
 export const deleteDeck = (id) => {
   return fetch(`${baseUrl}/${id}`, {
     method: "DELETE",
+  });
+};
+
+export const addDeck = (deck) => {
+  return fetch(`${baseUrl}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(deck),
   });
 };
 
