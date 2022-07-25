@@ -56,11 +56,11 @@ namespace CardCapstone.Controllers
         public IActionResult Delete(int id)
         {
             _deckRepository.DeleteDeck(id);
-            return NoContent(); 
+            return NoContent();
         }
 
-        [HttpDelete("UpdateDeckCards"), HttpPost("UpdateDeckCards")]
-        public IActionResult HandlePostReaction(Deck deck)
+        [HttpPost("UpdateDeckCards")]
+        public IActionResult UpdateDeckCards(Deck deck)
         {
             _deckRepository.UpdateDeckCards(deck);
             return NoContent();
