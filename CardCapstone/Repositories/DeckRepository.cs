@@ -155,7 +155,7 @@ namespace CardCapstone.Repositories
                     }
 
                     reader.Close();
-
+                    decks[0].DeckCards = decks[0].DeckCards.OrderBy(card => card.Mana).ToList();
                     return decks[0];
                 }
             }

@@ -1,16 +1,16 @@
 .collection-wrapper {
     width: 100vw;
     height: 100vh;
+    display: flex;
 }
 
 
 .card-display {
     margin-top: 1em;
-    margin-left: 1em;
-    width: 70%;
+    margin-left: 2em;
+    width: 80%;
     height: 70%;
     border: 4px solid #786028;
-    border-radius: 25px;
     overflow-x: auto;
     overflow-y: auto;
     /* no scrollbar IE 10+ and firefox */
@@ -25,10 +25,17 @@
     /*safari and chrome */
 }
 
-.collection-card-wrapper {
+.card-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
 
-    width: 250px;
-    height: 300px;
+.collection-card {
+
+    width: 300px;
+    height: 400px;
     margin: 1em;
     margin-right: 0em;
     cursor: pointer;
@@ -37,40 +44,71 @@
 
 }
 
-.card-list {
+.collection-card:hover {
+    transform: scale(1.1);
+}
+
+
+.deck-display {
+    margin-top: 1em;
+    position: absolute;
+    left: 86%;
+    width: 14%;
+    height: 71.5%;
+    border: 4px solid #786028;
+    overflow-x: auto;
+    overflow-y: auto;
+    /* no scrollbar IE 10+ and firefox */
+    -ms-overflow-style: none;
+    /* Internet Explorer 10+ */
+    scrollbar-width: none;
+    /* Firefox */
+
+}
+
+.deck-display::-webkit-scrollbar {
+    display: none;
+    /*safari and chrome */
+}
+
+@font-face {
+    font-family: 'Belwe';
+    src: url(../../static/BelweBoldBT.ttf) format('truetype');
+}
+
+.deck-display-title {
+    font-family: Belwe;
+    text-align: center;
+}
+
+.deck-card {
+    height: 15%;
+    margin: 0.5em;
+    font-family: Belwe;
+    position: relative;
+    cursor: pointer;
+
+}
+
+.deck-card:hover {
+    border: 1px solid white
+}
+
+
+.deck-selected-card {
+    height: 10%;
+    margin: 0.5em;
+    font-family: Belwe;
+    position: relative;
+    cursor: pointer;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
+
 }
 
-/* .collection-card-wrapper img {
-    width: 80%;
-    height: 80%;
-    align-self: center;
-} */
-
-.card-mana {
-    position: absolute;
-    top: 2.1%;
-    background-image: url(../../../public/images/card-assets/mana.png);
-    width: 5%;
-    height: 7.5%;
+.deck-selected-card h2 {
+    margin-right: 0.5em;
 }
 
-.card-mana h1 {
-    position: absolute;
-    right: 40%;
-    top: -10%;
-}
-
-.card-image {
-    width: 50%;
-    height: 50%;
-}
-
-.card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.deck-selected-card:hover {
+    border: 1px solid white
 }

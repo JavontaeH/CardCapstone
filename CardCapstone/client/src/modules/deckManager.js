@@ -1,5 +1,7 @@
 const baseUrl = "/api/Deck";
 
+//TODO: ADD AUTHORIZATION TO MANAGER METHODS
+
 export const getAllUserDecks = (id) => {
   return fetch(`${baseUrl}/GetAllUserDecks/${id}`).then((response) =>
     response.json()
