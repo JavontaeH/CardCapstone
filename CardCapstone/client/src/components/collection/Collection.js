@@ -29,6 +29,7 @@ export const Collection = ({ user }) => {
     setDeckSelected(deck);
   };
 
+  //TODO: change deckSelected state to an obj of key:value pairs where the key is the cardId and the value is the amt of that card. and increment/decrement based on if the key
   const handleCardClick = (card) => {
     if (deckSelected) {
       let tempDeck = { ...deckSelected };
