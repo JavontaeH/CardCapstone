@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as d from "../../modules/deckManager.js";
 import * as c from "../../modules/cardManager.js";
-// import { HearthCard } from "../card/HearthCard.js";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import { Deck } from "./Deck.js";
-import { CollectionCard } from "./CollectionCard.js";
+import { HearthCard } from "../card/HearthCard.js";
 import "./Collection.css";
 
 export const Collection = ({ user }) => {
@@ -45,7 +37,9 @@ export const Collection = ({ user }) => {
       <div className="card-display">
         <div className="card-list">
           {cards.map((card) => (
-            <CollectionCard card={card} key={card.id} />
+            <div className="collection-card" key={card.name + "container"}>
+              <HearthCard card={card} key={card.id} />
+            </div>
           ))}
         </div>
       </div>
