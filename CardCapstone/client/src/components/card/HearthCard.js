@@ -19,7 +19,7 @@ export const HearthCard = ({ card }) => {
     <RenderCard>
       <Image id={card.imageLocation} clip />
       <Frame />
-      <Cost fontFamily="Belwe">{card.mana}</Cost>
+      <Cost fontFamily="Belwe">{card.mana ? card.mana : "0"}</Cost>
       <Race fontFamily="Belwe">{card.cardType?.name}</Race>
       <Health fontFamily="Belwe">{card.hp}</Health>
       <Strength fontFamily="Belwe">{card.atk}</Strength>

@@ -13,7 +13,7 @@ export default function ApplicationViews({ isLoggedIn, user }) {
         <Route path="/">
           <Route
             index
-            element={isLoggedIn ? <Hello /> : <Navigate to="/login" />}
+            element={isLoggedIn ? <MainMenu /> : <Navigate to="/login" />}
           />
           <Route path="menu" element={<MainMenu />} />
           <Route path="collection" element={<Collection />} />

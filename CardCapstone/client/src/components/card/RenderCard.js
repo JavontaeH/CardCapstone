@@ -80,13 +80,19 @@ export const Cost = ({ children, fontFamily }) => (
         type="MSTextLayer"
         fontFamily={fontFamily || "sans-serif"}
         paintOrder="stroke"
-        fontSize="164"
+        fontSize="153"
         fontWeight="400"
         alignment="middle"
       >
-        <tspan x="48.1914062" y="142" fill="#FFF">
-          {children}
-        </tspan>
+        {children > 9 ? (
+          <tspan x="5.1914062" y="142" fill="#FFF">
+            {children}
+          </tspan>
+        ) : (
+          <tspan x="48.1914062" y="142" fill="#FFF">
+            {children}
+          </tspan>
+        )}
       </text>
     )}
   </g>
@@ -189,7 +195,7 @@ export const Text = ({ children, rich }) => {
             display: "table",
             height: "100%",
             width: "100%",
-            fontFamily: "belwe",
+            fontFamily: "sans-serif",
             fontSize: 50,
             lineHeight: "initial",
           }}
@@ -209,7 +215,7 @@ export const Text = ({ children, rich }) => {
       height="230"
       fontSize="50px"
       fill="black"
-      fontFamily="Belwe"
+      fontFamily="sans-serif"
       textAlign="center"
       color="black"
       lineHeight="initial"
