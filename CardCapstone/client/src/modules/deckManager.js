@@ -9,7 +9,7 @@ export const getAllUserDecks = (id) => {
 };
 
 export const getDeckById = (id) => {
-  return fetch(`${baseUrl}/${id}`);
+  return fetch(`${baseUrl}/${id}`).then((res) => res.json());
 };
 
 export const editDeck = (deck) => {

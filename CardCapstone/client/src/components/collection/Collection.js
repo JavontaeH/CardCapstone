@@ -13,6 +13,8 @@ export const Collection = ({ user }) => {
   const [userDecks, setUserDecks] = useState([]);
   const [cards, setCards] = useState([]);
   const [deckSelected, setDeckSelected] = useState(false);
+  const [textSearch, setTextSearch] = useState("");
+  const [manaSearch, setManaSearch] = useState(0);
   const navigate = useNavigate();
   //TODO: REPLACE STATIC ID WITH USER ID
   const userId = 1;
@@ -93,6 +95,29 @@ export const Collection = ({ user }) => {
       deckCode: Math.round(Math.random() * 9001).toString(),
       deckCards: [],
     });
+  };
+
+  const handleTextSearch = (evt) => {
+    setTextSearch(evt.target.value);
+    if (evt.target.value != "") {
+      c.textSearchCards(evt.target.value).then((res) => {
+        setCards(res);
+      });
+    } else {
+      getCards();
+    }
+  };
+
+  const handleManaSearch = (evt) => {
+    if (manaSearch != evt.target.value) {
+      setManaSearch(evt.target.value);
+      c.manaSearchCards(evt.target.value).then((res) => {
+        setCards(res);
+      });
+    } else {
+      getCards();
+      setManaSearch(0);
+    }
   };
 
   useEffect(() => {
@@ -183,7 +208,41 @@ export const Collection = ({ user }) => {
         </button>
       )}
 
-      <div className="search-wrapper"></div>
+      <div className="search-wrapper">
+        <div className="mana-search">
+          <button className="mana" value={1} onClick={handleManaSearch}>
+            1
+          </button>
+          <button className="mana" value={2} onClick={handleManaSearch}>
+            2
+          </button>
+          <button className="mana" value={3} onClick={handleManaSearch}>
+            3
+          </button>
+          <button className="mana" value={4} onClick={handleManaSearch}>
+            4
+          </button>
+          <button className="mana" value={5} onClick={handleManaSearch}>
+            5
+          </button>
+          <button className="mana" value={6} onClick={handleManaSearch}>
+            6
+          </button>
+          <button className="mana" value={7} onClick={handleManaSearch}>
+            7+
+          </button>
+        </div>
+        <div className="text-search">
+          <input
+            className="text-input"
+            id="textSearch"
+            onChange={handleTextSearch}
+            value={textSearch}
+            required
+            autoFocus
+          />
+        </div>
+      </div>
     </div>
   );
 };

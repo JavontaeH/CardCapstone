@@ -14,7 +14,9 @@ main {
     height: 100vh;
 }
 
-.menu-container {
-    width: 100vw;
-    height: 100vh;
+
+
+@font-face {
+    font-family: 'Belwe';
+    src: url(./static/BelweBoldBT.ttf) format('truetype');
 }
