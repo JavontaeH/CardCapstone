@@ -7,7 +7,6 @@
 
 .card-display {
     margin-top: 1em;
-    margin-left: 2em;
     width: 80%;
     height: 70%;
     border: 4px solid #786028;
@@ -52,7 +51,7 @@
 .deck-display {
     margin-top: 1em;
     position: absolute;
-    left: 86%;
+    left: 83%;
     width: 14%;
     height: 71.5%;
     border: 4px solid #786028;
@@ -78,7 +77,13 @@
 
 .deck-display-title {
     font-family: Belwe;
+
+
+    display: block;
+    font-size: 32px;
+    width: 100%;
     text-align: center;
+
 }
 
 .deck-card {
@@ -90,9 +95,7 @@
 
 }
 
-.deck-card:hover {
-    border: 1px solid white
-}
+
 
 
 .deck-selected-card {
@@ -109,6 +112,20 @@
     margin-right: 0.5em;
 }
 
-.deck-selected-card:hover {
-    border: 1px solid white
+
+
+.finish-button {
+    position: absolute;
+    top: 79%;
+    left: 89%
+}
+
+
+.delete {
+    color: red;
+    display: none;
+}
+
+.deck-card:hover .delete {
+    display: block
 }

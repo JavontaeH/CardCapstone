@@ -13,7 +13,7 @@ export const getDeckById = (id) => {
 };
 
 export const editDeck = (deck) => {
-  return fetch(`${baseUrl}/EditDeck/${deck.id}`, {
+  return fetch(`${baseUrl}/${deck.id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -35,7 +35,7 @@ export const addDeck = (deck) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(deck),
-  });
+  }).then((response) => response.json());
 };
 
 export const UpdateDeckCards = (deck) => {

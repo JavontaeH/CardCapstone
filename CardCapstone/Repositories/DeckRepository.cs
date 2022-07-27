@@ -19,7 +19,7 @@ namespace CardCapstone.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    select d.id, d.name, d.deckcode, d.userid, u.displayname, dc.CardId, c.name as 'card-name', c.imagelocation, c.hp, c.atk, c.mana, c.description, c.cardtypeid, ct.name as 'ct-name' 
+                    select d.id, d.name, d.deckcode, d.userid, u.displayname, u.email, dc.CardId, c.name as 'card-name', c.imagelocation, c.hp, c.atk, c.mana, c.description, c.cardtypeid, ct.name as 'ct-name' 
                     from deck d
                     join userprofile u on u.id = d.userid AND d.userId = @id
                     left join DeckCards dc on dc.DeckId = d.id
@@ -47,7 +47,8 @@ namespace CardCapstone.Repositories
                                 User = new UserProfile()
                                 {
                                     Id = DbUtils.GetInt(reader, "userId"),
-                                    DisplayName = DbUtils.GetString(reader, "displayname")
+                                    DisplayName = DbUtils.GetString(reader, "displayname"),
+                                    Email = DbUtils.GetString(reader, "email")
                                 },
                                 DeckCards = new List<Card>()
 
