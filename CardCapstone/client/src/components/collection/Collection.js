@@ -50,8 +50,11 @@ export const Collection = ({ user }) => {
     setDeckSelected(deck);
   };
 
-  const handleDeleteClick = (deck) => {
-    deleteDeck(deck.id);
+  const handleDeleteClick = (evt) => {
+    evt.stopPropagation();
+    deleteDeck(evt.target.id).then(() => {
+      getUserDecks(userId);
+    });
   };
 
   const handleDoneClick = () => {
@@ -132,8 +135,6 @@ export const Collection = ({ user }) => {
                 card={card}
                 key={card.id}
                 deckCards={deckSelected.deckCards}
-                deckSelected={deckSelected}
-                handleFieldChange={handleFieldChange}
               />
             </div>
           ))}
@@ -144,7 +145,7 @@ export const Collection = ({ user }) => {
           {userDecks?.map((deck) => (
             <div
               className="deck-card"
-              key={deck.name + "container"}
+              key={deck.id + "key"}
               onClick={() => {
                 handleDeckClick(deck);
               }}
@@ -154,13 +155,14 @@ export const Collection = ({ user }) => {
                 key={deck.id}
                 getUserDecks={() => getUserDecks()}
               />
-              <a
+              <button
                 className="delete"
                 href="#"
-                onClick={() => handleDeleteClick(deck)}
+                id={deck.id}
+                onClick={handleDeleteClick}
               >
                 X
-              </a>
+              </button>
             </div>
           ))}
           <button
