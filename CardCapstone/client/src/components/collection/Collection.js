@@ -166,7 +166,9 @@ export const Collection = ({ user }) => {
         </div>
       ) : (
         <div className="deck-display">
-          <h2 className="deck-display-title">My Decks</h2>
+          <div className="deck-title-container">
+            <h2 className="deck-display-title">My Decks</h2>
+          </div>
           {userDecks?.map((deck) => (
             <div
               className="deck-card"
