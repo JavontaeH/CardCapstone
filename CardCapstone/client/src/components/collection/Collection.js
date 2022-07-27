@@ -16,6 +16,7 @@ export const Collection = ({ user }) => {
   const [textSearch, setTextSearch] = useState("");
   const [manaSearch, setManaSearch] = useState(0);
   const navigate = useNavigate();
+
   //TODO: REPLACE STATIC ID WITH USER ID
   const userId = 1;
 
