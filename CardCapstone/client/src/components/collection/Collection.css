@@ -55,13 +55,13 @@
     left: 83%;
     width: 14%;
     height: 71.5%;
-    overflow-x: auto;
-    overflow-y: auto;
-    /* no scrollbar IE 10+ and firefox */
-    -ms-overflow-style: none;
-    /* Internet Explorer 10+ */
-    scrollbar-width: none;
-    /* Firefox */
+    background-image: url(../../../public/images/web-assets/deck-list-bg.png);
+    background-size: 100%;
+}
+
+.deck-display-innards {
+    height: 100%;
+    width: 100%;
     background-image: url(../../../public/images/web-assets/deck-list-border.png);
     background-size: 100%;
 }
@@ -128,11 +128,23 @@
 }
 
 
+.deck-list {
+    overflow-x: auto;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
 
-.finish-button {
+
+.deck-list-buttons {
+    display: flex;
+    background-image: url(../../../public/images/web-assets/deck-buttons-border.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 15%;
+    width: 100%;
     position: absolute;
-    top: 79%;
-    left: 89%
+    bottom: -10%;
 }
 
 

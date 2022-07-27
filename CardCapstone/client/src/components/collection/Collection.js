@@ -167,48 +167,60 @@ export const Collection = ({ user }) => {
         </div>
       ) : (
         <div className="deck-display">
-          <div className="deck-title-container">
-            <h2 className="deck-display-title">My Decks</h2>
-          </div>
-          {userDecks?.map((deck) => (
-            <div
-              className="deck-card"
-              key={deck.id + "key"}
-              onClick={() => {
-                handleDeckClick(deck);
-              }}
-            >
-              <DeckCard
-                deck={deck}
-                key={deck.id}
-                getUserDecks={() => getUserDecks()}
-              />
-              <button
-                className="delete"
-                href="#"
-                id={deck.id}
-                onClick={handleDeleteClick}
-              >
-                X
-              </button>
+          <div className="deck-display-innards">
+            <div className="deck-title-container">
+              <h2 className="deck-display-title">My Decks</h2>
             </div>
-          ))}
-          <button
-            className="new-deck-button"
-            onClick={() => handleNewDeckClick()}
-          >
-            New Deck
-          </button>
+            <div className="deck-list">
+              {userDecks?.map((deck) => (
+                <div
+                  className="deck-card"
+                  key={deck.id + "key"}
+                  onClick={() => {
+                    handleDeckClick(deck);
+                  }}
+                >
+                  <DeckCard
+                    deck={deck}
+                    key={deck.id}
+                    getUserDecks={() => getUserDecks()}
+                  />
+                  <button
+                    className="delete"
+                    href="#"
+                    id={deck.id}
+                    onClick={handleDeleteClick}
+                  >
+                    X
+                  </button>
+                </div>
+              ))}
+            </div>
+            <div className="deck-list-buttons">
+              <button
+                className="new-deck-button"
+                onClick={() => handleNewDeckClick()}
+              >
+                New Deck
+              </button>
+              {deckSelected ? (
+                <button
+                  className="finish-button"
+                  onClick={() => handleDoneClick()}
+                >
+                  Done
+                </button>
+              ) : (
+                <button
+                  className="finish-button"
+                  onClick={() => handleDoneClick()}
+                >
+                  Back
+                </button>
+              )}
+            </div>
+          </div>
         </div>
-      )}
-      {deckSelected ? (
-        <button className="finish-button" onClick={() => handleDoneClick()}>
-          Done
-        </button>
-      ) : (
-        <button className="finish-button" onClick={() => handleDoneClick()}>
-          Back
-        </button>
       )}
 
       <div className="search-wrapper">
