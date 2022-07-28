@@ -281,7 +281,7 @@ export const Health = ({ children, fontFamily }) => (
         fontWeight="400"
         alignment="middle"
       >
-        <tspan x="60" y="160" fill="#FFF">
+        <tspan x="55" y="160" fill="#FFF">
           {children}
         </tspan>
       </text>
