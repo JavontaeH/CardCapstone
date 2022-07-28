@@ -20,6 +20,8 @@ export const Collection = ({ user }) => {
   //TODO: REPLACE STATIC ID WITH USER ID
   const userId = 1;
 
+  //TODO: SCROLL TO BOTTOM WHEN CARD ADDED
+
   const getUserDecks = (id) => {
     d.getAllUserDecks(id).then((decks) => {
       setUserDecks(decks);
@@ -146,7 +148,14 @@ export const Collection = ({ user }) => {
         <div className="deck-display">
           <div className="deck-display-innards">
             <div className="deck-title-container">
-              <h2 className="deck-display-title">{selectedDeck.name}</h2>
+              <input
+                className="deck-display-title-input"
+                id="name"
+                onChange={handleFieldChange}
+                value={selectedDeck.name}
+                required
+                autoFocus
+              />
               <button
                 className="delete-button"
                 id={selectedDeck.id}
@@ -158,12 +167,13 @@ export const Collection = ({ user }) => {
             <div className="deck-list">
               {selectedDeck.deckCards.map((card, index) => (
                 <div
-                  className="deck-card"
+                  className="card-span"
                   key={index + "key"}
                   style={{
                     backgroundImage: `url(${card.imageLocation})`,
                     backgroundPosition: "center",
-                    backgroundSize: "cover",
+                    backgroundSize: "85%",
+                    backgroundRepeat: "no-repeat",
                   }}
                   onClick={() => {
                     handleDeckCardClick(card, index);

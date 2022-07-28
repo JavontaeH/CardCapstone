@@ -64,8 +64,8 @@
 .deck-display {
     margin-top: 1em;
     position: absolute;
-    left: 79%;
-    width: 17%;
+    left: 75%;
+    width: 20%;
     height: 72%;
     background-image: url(../../../public/images/web-assets/deck-list-bg.png);
     background-size: 100%;
@@ -129,20 +129,35 @@
 
 }
 
-.deck-card {
-    display: flex;
-    height: 15%;
-    margin-bottom: 1em;
+.deck-display-title-input {
     font-family: Belwe;
-    position: relative;
-    cursor: pointer;
-    border: 17px solid transparent;
+    color: white;
+    font-size: 32px;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    position: absolute;
+    top: 0%;
+    height: 100%;
+    padding: 0;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    text-shadow: rgb(0 0 0) 2px 0px 0px, rgb(0 0 0) 1.75517px 0.95885px 0px, rgb(0 0 0) 1.0806px 1.68294px 0px, rgb(0 0 0) 0.14147px 1.99499px 0px, rgb(0 0 0) -0.83229px 1.81859px 0px, rgb(0 0 0) -1.60229px 1.19694px 0px, rgb(0 0 0) -1.97998px 0.28224px 0px, rgb(0 0 0) -1.87291px -0.70157px 0px, rgb(0 0 0) -1.30729px -1.5136px 0px, rgb(0 0 0) -0.42159px -1.95506px 0px, rgb(0 0 0) 0.56732px -1.91785px 0px, rgb(0 0 0) 1.41734px -1.41108px 0px, rgb(0 0 0) 1.92034px -0.55883px 0px;
 
-    -webkit-border-image: url(../../../public/images/web-assets/Deck-border.png) 19 repeat;
-    -border-image: url(../../../public/images/web-assets/Deck-border.png)19 repeat;
-    -o-border-image: url(../../../public/images/web-assets/Deck-border.png)19 repeat;
-    -moz-border-image: url(../../../public/images/web-assets/Deck-border.png)19 repeat;
 }
+
+.delete-button {
+    position: absolute;
+    left: 90%;
+    top: 5%;
+    cursor: pointer;
+    background-color: red;
+    border-radius: 22px;
+    border-color: white;
+    border-style: solid;
+    color: white;
+}
+
 
 .deck-title {
     background: linear-gradient(to right, #000 25%, transparent);
@@ -152,13 +167,6 @@
     color: white;
     margin: 0px;
 
-}
-
-.deck-card:hover {
-
-
-
-    box-shadow: 0px 0px 10px white;
 }
 
 
@@ -182,14 +190,8 @@
 
 
 .deck-list {
-    overflow-x: auto;
-    overflow-y: auto;
-    /* no scrollbar IE 10+ and firefox */
-    -ms-overflow-style: none;
-    /* Internet Explorer 10+ */
-    scrollbar-width: none;
-    /* Firefox */
-    margin: 1em;
+
+    margin-top: 1em;
 }
 
 
@@ -346,4 +348,68 @@
 .text-input::placeholder {
     color: #927463;
     text-shadow: none !important;
+}
+
+
+.deck-card {
+    display: flex;
+    height: 15%;
+    margin-bottom: 1em;
+    font-family: Belwe;
+    position: relative;
+    cursor: pointer;
+    border: 17px solid transparent;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    -webkit-border-image: url(../../../public/images/web-assets/Deck-border.png) 19 repeat;
+    -border-image: url(../../../public/images/web-assets/Deck-border.png)19 repeat;
+    -o-border-image: url(../../../public/images/web-assets/Deck-border.png)19 repeat;
+    -moz-border-image: url(../../../public/images/web-assets/Deck-border.png)19 repeat;
+}
+
+
+
+.deck-card:hover {
+
+
+
+    box-shadow: 0px 0px 10px white;
+}
+
+.card-span {
+    display: flex;
+    width: 100%;
+    height: 44px;
+    cursor: pointer;
+    text-align: left;
+    line-height: 44px;
+    font-family: Belwe;
+    font-size: 26px;
+    margin-bottom: 1em;
+    color: white;
+    text-shadow: #000 2px 0 0, #000 1.75517px 0.95885px 0, #000 1.0806px 1.68294px 0, #000 0.14147px 1.99499px 0, #000 -0.83229px 1.81859px 0, #000 -1.60229px 1.19694px 0, #000 -1.97998px 0.28224px 0, #000 -1.87291px -0.70157px 0, #000 -1.30729px -1.5136px 0, #000 -0.42159px -1.95506px 0, #000 0.56732px -1.91785px 0, #000 1.41734px -1.41108px 0, #000 1.92034px -0.55883px 0;
+}
+
+.card-row-cost {
+    background: url(../../../public/images/web-assets/card-row-mana-icon.png) 0% 0% / 50px 44px no-repeat;
+    width: 50px;
+    height: 44px;
+    text-align: center;
+}
+
+.card-row-name {
+    background: url(../../../public/images/web-assets/card-row-name-icon.png) 0% 0% / 100% 44px no-repeat;
+    width: calc(100% - 100px);
+    height: 44px;
+    text-align: left;
+    text-overflow: ellipsis;
+
+}
+
+.card-row-count {
+    background: url(../../../public/images/web-assets/card-row-count-icon.png) 0% 0% / 50px 44px no-repeat;
+    width: 50px;
+    height: 44px;
+    text-align: center;
 }
