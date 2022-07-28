@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import ApplicationViews from "./components/ApplicationViews";
 import { onLoginStatusChange } from "./modules/authManager";
 import { getLoggedInUser } from "./modules/userProfileManager.js";
+import { Spinner } from "reactstrap";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
@@ -21,9 +22,9 @@ function App() {
     }
   }, [isLoggedIn]);
 
-  // if (isLoggedIn === null || user === null) {
-  //   return <Spinner className="app-spinner dark" />;
-  // }
+  if (isLoggedIn === null || user === null) {
+    return <Spinner className="app-spinner dark" />;
+  }
 
   return (
     <Router>
