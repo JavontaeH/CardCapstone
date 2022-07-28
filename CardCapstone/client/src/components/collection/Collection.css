@@ -8,6 +8,7 @@
 
 .card-display {
     margin-top: 1em;
+    margin-left: 1em;
     width: 70%;
     height: 72%;
     overflow-x: auto;
@@ -18,7 +19,6 @@
     scrollbar-width: none;
     /* Firefox */
     border: 17px solid transparent;
-    margin: 1em;
     -webkit-border-image: url(../../../public/images/web-assets/card-border.png) 17 repeat;
     -border-image: url(../../../public/images/web-assets/card-border.png) 17 repeat;
     -o-border-image: url(../../../public/images/web-assets/card-border.png) 17 repeat;
@@ -59,7 +59,7 @@
 .deck-display {
     margin-top: 1em;
     position: absolute;
-    left: 80%;
+    left: 79%;
     width: 17%;
     height: 72%;
     background-image: url(../../../public/images/web-assets/deck-list-bg.png);
@@ -124,6 +124,7 @@
     position: relative;
     cursor: pointer;
     border: 17px solid transparent;
+
     -webkit-border-image: url(../../../public/images/web-assets/Deck-border.png) 19 repeat;
     -border-image: url(../../../public/images/web-assets/Deck-border.png)19 repeat;
     -o-border-image: url(../../../public/images/web-assets/Deck-border.png)19 repeat;
@@ -134,7 +135,7 @@
     background: linear-gradient(to right, #000 25%, transparent);
     width: 100%;
     font-size: 24px;
-    margin-top: 20px !important;
+    margin-top: 40px !important;
     color: white;
     margin: 0px;
 
@@ -207,10 +208,8 @@
 
 .search-wrapper {
     position: absolute;
-    top: 79%;
+    top: 80%;
     display: flex;
-    width: 70%;
-    height: 25%;
 }
 
 .mana-search {

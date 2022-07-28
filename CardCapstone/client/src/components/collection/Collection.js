@@ -176,6 +176,19 @@ export const Collection = ({ user }) => {
                 <div
                   className="deck-card"
                   key={deck.id + "key"}
+                  style={
+                    deck.deckCards.length >= 1
+                      ? {
+                          backgroundImage: `url(${deck.deckCards[0]?.imageLocation})`,
+                          backgroundPosition: "center",
+                          backgroundSize: "cover",
+                        }
+                      : {
+                          backgroundImage: `url(images/card-art/Flame_Imp.png)`,
+                          backgroundPosition: "center",
+                          backgroundSize: "cover",
+                        }
+                  }
                   onClick={() => {
                     handleDeckClick(deck);
                   }}
