@@ -291,6 +291,7 @@ export const Collection = ({ user }) => {
             value={textSearch}
             required
             autoFocus
+            placeholder="Search"
           />
         </div>
       </div>
