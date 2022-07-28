@@ -185,17 +185,11 @@ export const Collection = ({ user }) => {
                     key={deck.id}
                     getUserDecks={() => getUserDecks()}
                   />
-                  <button
-                    className="delete"
-                    href="#"
-                    id={deck.id}
-                    onClick={handleDeleteClick}
-                  >
-                    X
-                  </button>
                 </div>
               ))}
             </div>
+          </div>
+          <div className="deck-list-buttons-container">
             <div className="deck-list-buttons">
               <button
                 className="new-deck-button"
