@@ -153,6 +153,7 @@
     cursor: pointer;
     background-color: red;
     border-radius: 22px;
+    text-align: center;
     border-color: white;
     border-style: solid;
     color: white;
@@ -223,41 +224,43 @@
     display: flex;
     justify-content: space-around;
     margin-top: 5%;
-    cursor: pointer;
 
 
 
 }
 
 .new-deck-button {
-    font-family: Belwe;
-    font-size: 16px;
-    color: white;
-    width: 50%;
-    height: 50%;
     cursor: pointer;
-    background: linear-gradient(to right, rgb(146, 27, 154), rgb(185, 33, 196), rgb(146, 27, 154));
-    transition: all 0.5s;
-    border-radius: 6px;
-    border: 3px solid transparent;
-    background-color: #7e5f58;
-    border-image: linear-gradient(180deg, #ededed, #573b23) 1;
-    color: #fff;
-    font-weight: bold;
-    padding: 8px;
+    font-size: 20px;
+    font-family: Belwe;
+    width: 40%;
+    cursor: pointer;
+    height: 50px;
+    background-color: #bdac83;
+    border-radius: 20px;
+    border: 5px outset #c6a14d;
+    color: rgb(51, 31, 12)
+}
 
-    margin: 2px;
-    text-shadow: 0 0 3px #000;
-    text-align: center;
-
+.new-deck-button:hover {
+    box-shadow: 0px 0px 10px white;
 }
 
 .finish-button {
+    cursor: pointer;
+    font-size: 20px;
     font-family: Belwe;
-    width: 50%;
+    width: 40%;
     cursor: pointer;
     height: 50px;
-    background-color: #71191a;
+    background-color: #bdac83;
+    border-radius: 20px;
+    border: 5px outset #c6a14d;
+    color: rgb(51, 31, 12)
+}
+
+.finish-button:hover {
+    box-shadow: 0px 0px 10px white;
 }
 
 
@@ -378,6 +381,7 @@
 }
 
 .card-span {
+
     display: flex;
     width: 100%;
     height: 44px;
@@ -391,6 +395,10 @@
     text-shadow: #000 2px 0 0, #000 1.75517px 0.95885px 0, #000 1.0806px 1.68294px 0, #000 0.14147px 1.99499px 0, #000 -0.83229px 1.81859px 0, #000 -1.60229px 1.19694px 0, #000 -1.97998px 0.28224px 0, #000 -1.87291px -0.70157px 0, #000 -1.30729px -1.5136px 0, #000 -0.42159px -1.95506px 0, #000 0.56732px -1.91785px 0, #000 1.41734px -1.41108px 0, #000 1.92034px -0.55883px 0;
 }
 
+.card-span:hover {
+    box-shadow: 0px 0px 5px white;
+}
+
 .card-row-cost {
     background: url(../../../public/images/web-assets/card-row-mana-icon.png) 0% 0% / 50px 44px no-repeat;
     width: 50px;
@@ -399,11 +407,13 @@
 }
 
 .card-row-name {
-    background: url(../../../public/images/web-assets/card-row-name-icon.png) 0% 0% / 100% 44px no-repeat;
+    background: url(../../../public/images/web-assets/card-row-name-icon.png) 0% 0% / 100% 44px no-repeat, linear-gradient(to right, #000 -20%, transparent);
+    ;
     width: calc(100% - 100px);
     height: 44px;
     text-align: left;
     text-overflow: ellipsis;
+
 
 }
 
