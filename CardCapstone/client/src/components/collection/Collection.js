@@ -12,7 +12,7 @@ import "./Collection.css";
 export const Collection = ({ user }) => {
   const [userDecks, setUserDecks] = useState([]);
   const [cards, setCards] = useState([]);
-  const [deckSelected, setDeckSelected] = useState(false);
+  const [selectedDeck, setSelectedDeck] = useState(false);
   const [textSearch, setTextSearch] = useState("");
   const [manaSearch, setManaSearch] = useState(0);
   const navigate = useNavigate();
@@ -32,51 +32,52 @@ export const Collection = ({ user }) => {
     });
   };
 
-  //TODO: change deckSelected state to an obj of key:value pairs where the key is the cardId and the value is the amt of that card. and increment/decrement based on if the key
+  //TODO: change selectedDeck state to an obj of key:value pairs where the key is the cardId and the value is the amt of that card. and increment/decrement based on if the key
   const handleCardClick = (card) => {
-    if (deckSelected) {
-      let tempDeck = { ...deckSelected };
+    if (selectedDeck) {
+      let tempDeck = { ...selectedDeck };
       tempDeck.deckCards.push(card);
-      setDeckSelected(tempDeck);
+      setSelectedDeck(tempDeck);
     } else {
       console.log(card);
     }
   };
 
   const handleDeckCardClick = (card, index) => {
-    let tempDeck = { ...deckSelected };
+    let tempDeck = { ...selectedDeck };
     tempDeck.deckCards.splice(index, 1);
-    setDeckSelected(tempDeck);
+    setSelectedDeck(tempDeck);
   };
 
   const handleDeckClick = (deck) => {
-    setDeckSelected(deck);
+    setSelectedDeck(deck);
   };
 
   const handleDeleteClick = (evt) => {
-    evt.stopPropagation();
+    console.log("hi");
     deleteDeck(evt.target.id).then(() => {
       getUserDecks(userId);
     });
+    setSelectedDeck(false);
   };
 
   const handleDoneClick = () => {
-    if (deckSelected) {
-      if (deckSelected.id) {
-        d.editDeck(deckSelected).then(() => {
-          d.UpdateDeckCards(deckSelected).then(() => {
+    if (selectedDeck) {
+      if (selectedDeck.id) {
+        d.editDeck(selectedDeck).then(() => {
+          d.UpdateDeckCards(selectedDeck).then(() => {
             getUserDecks(userId);
           });
-          setDeckSelected(false);
+          setSelectedDeck(false);
         });
       } else {
-        d.addDeck(deckSelected).then((res) => {
-          deckSelected.id = res.id;
-          d.UpdateDeckCards(deckSelected).then(() => {
+        d.addDeck(selectedDeck).then((res) => {
+          selectedDeck.id = res.id;
+          d.UpdateDeckCards(selectedDeck).then(() => {
             getUserDecks(userId);
           });
         });
-        setDeckSelected(false);
+        setSelectedDeck(false);
       }
     } else {
       navigate("../menu");
@@ -84,13 +85,13 @@ export const Collection = ({ user }) => {
   };
 
   const handleFieldChange = (evt) => {
-    const stateToChange = { ...deckSelected };
+    const stateToChange = { ...selectedDeck };
     stateToChange[evt.target.id] = evt.target.value;
-    setDeckSelected(stateToChange);
+    setSelectedDeck(stateToChange);
   };
 
   const handleNewDeckClick = () => {
-    setDeckSelected({
+    setSelectedDeck({
       name: "New Deck",
       userId: userId,
       deckCode: Math.round(Math.random() * 9001).toString(),
@@ -141,29 +142,57 @@ export const Collection = ({ user }) => {
           ))}
         </div>
       </div>
-      {deckSelected ? (
+      {selectedDeck ? (
         <div className="deck-display">
-          <input
-            className="deck-display-title"
-            id="name"
-            onChange={handleFieldChange}
-            value={deckSelected.name}
-            required
-            autoFocus
-          />
-          {deckSelected.deckCards.map((card, index) => (
-            <div
-              className="deck-selected-card"
-              key={index + "-container"}
-              onClick={() => handleDeckCardClick(card, index)}
-            >
-              <SelectedCard
-                card={card}
-                key={card.id}
-                deckCards={deckSelected.deckCards}
-              />
+          <div className="deck-display-innards">
+            <div className="deck-title-container">
+              <h2 className="deck-display-title">{selectedDeck.name}</h2>
+              <button
+                className="delete-button"
+                id={selectedDeck.id}
+                onClick={handleDeleteClick}
+              >
+                X
+              </button>
             </div>
-          ))}
+            <div className="deck-list">
+              {selectedDeck.deckCards.map((card, index) => (
+                <div
+                  className="deck-card"
+                  key={index + "key"}
+                  style={{
+                    backgroundImage: `url(${card.imageLocation})`,
+                    backgroundPosition: "center",
+                    backgroundSize: "cover",
+                  }}
+                  onClick={() => {
+                    handleDeckCardClick(card, index);
+                  }}
+                >
+                  <SelectedCard card={card} key={card.id} />
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="deck-list-buttons-container">
+            <div className="deck-list-buttons">
+              {selectedDeck ? (
+                <button
+                  className="finish-button"
+                  onClick={() => handleDoneClick()}
+                >
+                  Done
+                </button>
+              ) : (
+                <button
+                  className="finish-button"
+                  onClick={() => handleDoneClick()}
+                >
+                  Back
+                </button>
+              )}
+            </div>
+          </div>
         </div>
       ) : (
         <div className="deck-display">
@@ -184,8 +213,8 @@ export const Collection = ({ user }) => {
                           backgroundSize: "cover",
                         }
                       : {
-                          backgroundImage: `url(images/card-art/Flame_Imp.png)`,
-                          backgroundPosition: "center",
+                          backgroundImage: `url(images/card-art/Angry_Chicken.png)`,
+                          backgroundPosition: "20% 25%",
                           backgroundSize: "cover",
                         }
                   }
@@ -210,7 +239,7 @@ export const Collection = ({ user }) => {
               >
                 New Deck
               </button>
-              {deckSelected ? (
+              {selectedDeck ? (
                 <button
                   className="finish-button"
                   onClick={() => handleDoneClick()}

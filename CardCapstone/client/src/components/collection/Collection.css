@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Belwe';
+    src: url(../../static/BelweBoldBT.ttf) format('truetype');
+}
+
 .collection-wrapper {
     width: 100vw;
     height: 100vh;
@@ -73,8 +78,19 @@
 }
 
 .deck-display-innards {
-    height: 92%;
+    overflow-x: auto;
+    overflow-y: auto;
+    /* no scrollbar IE 10+ and firefox */
+    -ms-overflow-style: none;
+    /* Internet Explorer 10+ */
+    scrollbar-width: none;
+    /* Firefox */
+    height: 85%;
     width: 100%;
+}
+
+.deck-display-innards::-webkit-scrollbar {
+    display: none;
 }
 
 .deck-display::-webkit-scrollbar {
@@ -82,10 +98,6 @@
     /*safari and chrome */
 }
 
-@font-face {
-    font-family: 'Belwe';
-    src: url(../../static/BelweBoldBT.ttf) format('truetype');
-}
 
 
 .deck-title-container {
@@ -171,10 +183,14 @@
 .deck-list {
     overflow-x: auto;
     overflow-y: auto;
+    /* no scrollbar IE 10+ and firefox */
     -ms-overflow-style: none;
+    /* Internet Explorer 10+ */
     scrollbar-width: none;
+    /* Firefox */
     margin: 1em;
 }
+
 
 .delete {
     color: red;
@@ -189,20 +205,57 @@
 }
 
 .deck-list-buttons-container {
-    display: flex;
-    height: 10%;
+    height: 15%;
     width: 100%;
-    justify-content: center;
-    align-items: center;
     border-top: 17px solid transparent;
     -webkit-border-image: url(../../../public/images/web-assets/card-border.png) 17 repeat;
     -border-image: url(../../../public/images/web-assets/card-border.png) 17 repeat;
     -o-border-image: url(../../../public/images/web-assets/card-border.png) 17 repeat;
     -moz-border-image: url(../../../public/images/web-assets/card-border.png) 17 repeat;
 
+
 }
 
-.deck-list-buttons {}
+.deck-list-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5%;
+    cursor: pointer;
+
+
+
+}
+
+.new-deck-button {
+    font-family: Belwe;
+    font-size: 16px;
+    color: white;
+    width: 50%;
+    height: 50%;
+    cursor: pointer;
+    background: linear-gradient(to right, rgb(146, 27, 154), rgb(185, 33, 196), rgb(146, 27, 154));
+    transition: all 0.5s;
+    border-radius: 6px;
+    border: 3px solid transparent;
+    background-color: #7e5f58;
+    border-image: linear-gradient(180deg, #ededed, #573b23) 1;
+    color: #fff;
+    font-weight: bold;
+    padding: 8px;
+
+    margin: 2px;
+    text-shadow: 0 0 3px #000;
+    text-align: center;
+
+}
+
+.finish-button {
+    font-family: Belwe;
+    width: 50%;
+    cursor: pointer;
+    height: 50px;
+    background-color: #71191a;
+}
 
 
 
