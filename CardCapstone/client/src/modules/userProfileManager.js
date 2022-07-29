@@ -21,7 +21,7 @@ export const getUserProfileById = (num) => {
 
 export const getLoggedInUser = () => {
   return getToken().then((token) =>
-    fetch(baseUrl + `/GetCurrentUserInfo`, {
+    fetch(baseUrl + `/GetCurrentUserProfileInfo`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,

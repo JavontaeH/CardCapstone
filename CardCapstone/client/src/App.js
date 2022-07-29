@@ -22,7 +22,7 @@ function App() {
     }
   }, [isLoggedIn]);
 
-  if (isLoggedIn === null || user === null) {
+  if (isLoggedIn === null || (user === null && isLoggedIn === true)) {
     return <Spinner className="app-spinner dark" />;
   }
 

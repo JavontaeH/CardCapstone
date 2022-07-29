@@ -6,21 +6,30 @@ import { HearthCard } from "../card/HearthCard.js";
 import { DeckCard } from "./DeckCard.js";
 import { SelectedCard } from "./SelectedCard.js";
 import { deleteDeck } from "../../modules/deckManager";
+import { getLoggedInUser } from "../../modules/userProfileManager.js";
 
 import "./Collection.css";
 
 export const Collection = ({ user }) => {
   const [userDecks, setUserDecks] = useState([]);
+  const [userId, setUserId] = useState(0);
   const [cards, setCards] = useState([]);
   const [selectedDeck, setSelectedDeck] = useState(false);
   const [textSearch, setTextSearch] = useState("");
   const [manaSearch, setManaSearch] = useState(0);
   const navigate = useNavigate();
 
-  //TODO: REPLACE STATIC ID WITH USER ID
-  const userId = 1;
+  useEffect(() => {
+    getLoggedInUser().then((res) => {
+      setUserId(res.id);
+      getUserDecks(res.id);
+    });
+
+    getCards();
+  }, []);
 
   //TODO: SCROLL TO BOTTOM WHEN CARD ADDED
+  //TODO: ADD USER INPUT VALIDATION... DECK NAME, AMT OF CARDS IN DECK TO PLAY.
 
   const getUserDecks = (id) => {
     d.getAllUserDecks(id).then((decks) => {
@@ -82,7 +91,7 @@ export const Collection = ({ user }) => {
         setSelectedDeck(false);
       }
     } else {
-      navigate("../menu");
+      navigate("../");
     }
   };
 
@@ -123,11 +132,6 @@ export const Collection = ({ user }) => {
       setManaSearch(0);
     }
   };
-
-  useEffect(() => {
-    getUserDecks(userId);
-    getCards();
-  }, []);
 
   return (
     <div className="collection-wrapper">

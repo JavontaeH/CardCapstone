@@ -4,7 +4,7 @@ GO
 
 set identity_insert [UserProfile] on 
 insert into [UserProfile] ([Id], [DisplayName], [Email], [FirebaseUserId])
-values (1, 'admin', 'admin@email.com', 'hmEn13uyI8Xgl1j4bQPHbCN25mW2')
+values (1, 'admin', 'admin@admin.com', 'LtB76fC7SMP1DU4UQJZhpfyZt2I2')
 set identity_insert [UserProfile] off
 
 

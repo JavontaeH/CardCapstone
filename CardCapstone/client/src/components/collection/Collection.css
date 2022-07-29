@@ -233,10 +233,9 @@
     cursor: pointer;
     font-size: 20px;
     font-family: Belwe;
-    width: 40%;
     cursor: pointer;
     height: 50px;
-    background-color: #bdac83;
+    background-color: #bda89a;
     border-radius: 20px;
     border: 5px outset #c6a14d;
     color: rgb(51, 31, 12)
@@ -250,10 +249,10 @@
     cursor: pointer;
     font-size: 20px;
     font-family: Belwe;
-    width: 40%;
+    width: 33%;
     cursor: pointer;
     height: 50px;
-    background-color: #bdac83;
+    background-color: #bda89a;
     border-radius: 20px;
     border: 5px outset #c6a14d;
     color: rgb(51, 31, 12)
@@ -357,7 +356,7 @@
 .deck-card {
     display: flex;
     height: 15%;
-    margin-bottom: 1em;
+    margin: 1em;
     font-family: Belwe;
     position: relative;
     cursor: pointer;
