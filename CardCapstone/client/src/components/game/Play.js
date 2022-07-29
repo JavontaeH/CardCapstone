@@ -88,7 +88,33 @@ export const Play = ({ user }) => {
         </div>
       </div>
       <div className="play-display">
-        <div className="selected-deck-container"></div>
+        <div className="selected-deck-container">
+          {selectedDeck ? (
+            selectedDeck?.deckCards?.length >= 1 ? (
+              <img
+                className="selected-deck-image"
+                src={selectedDeck?.deckCards[0]?.imageLocation}
+                alt="selected deck image"
+              />
+            ) : (
+              <img
+                className="selected-deck-image"
+                src="images/card-art/Angry_Chicken.png"
+                alt="selected deck image"
+              />
+            )
+          ) : (
+            <img className="selected-deck-image" />
+          )}
+          <h2 className="choose-deck-title">
+            <span>{selectedDeck.name}</span>
+          </h2>
+          <div className="selected-deck-btn-container">
+            <button>EDIT</button>
+            <button>PLAY</button>
+            <button>BACK</button>
+          </div>
+        </div>
       </div>
     </div>
   );
