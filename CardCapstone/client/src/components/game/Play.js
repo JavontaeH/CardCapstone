@@ -45,6 +45,20 @@ export const Play = ({ user }) => {
     setSelectedDeck(deck);
   };
 
+  const handleBtnClick = (e) => {
+    if (e.target.id === "edit-btn") {
+      if (selectedDeck) {
+        navigate("../collection", { state: { selectedDeck: selectedDeck } });
+      } else {
+        alert("Please select a deck to edit.");
+      }
+    } else if (e.target.id === "play-btn") {
+      navigate("../play/webstone");
+    } else if (e.target.id === "back-btn") {
+      navigate("../");
+    }
+  };
+
   return (
     <div className="play-wrapper">
       <div className="play-deck-display">
@@ -104,15 +118,21 @@ export const Play = ({ user }) => {
               />
             )
           ) : (
-            <img className="selected-deck-image" />
+            <img className="empty-selected-deck-image" />
           )}
           <h2 className="choose-deck-title">
             <span>{selectedDeck.name}</span>
           </h2>
           <div className="selected-deck-btn-container">
-            <button>EDIT</button>
-            <button>PLAY</button>
-            <button>BACK</button>
+            <button id="edit-btn" className="ed-btn" onClick={handleBtnClick}>
+              EDIT
+            </button>
+            <button id="play-btn" className="ply-btn" onClick={handleBtnClick}>
+              PLAY
+            </button>
+            <button id="back-btn" className="bck-btn" onClick={handleBtnClick}>
+              BACK
+            </button>
           </div>
         </div>
       </div>

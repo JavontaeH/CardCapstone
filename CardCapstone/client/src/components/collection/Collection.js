@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import * as d from "../../modules/deckManager.js";
 import * as c from "../../modules/cardManager.js";
 import { HearthCard } from "../card/HearthCard.js";
@@ -18,6 +18,7 @@ export const Collection = ({ user }) => {
   const [textSearch, setTextSearch] = useState("");
   const [manaSearch, setManaSearch] = useState(0);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     getLoggedInUser().then((res) => {
@@ -26,6 +27,10 @@ export const Collection = ({ user }) => {
     });
 
     getCards();
+
+    if (location.state != null) {
+      setSelectedDeck(location.state.selectedDeck);
+    }
   }, []);
 
   //TODO: SCROLL TO BOTTOM WHEN CARD ADDED
@@ -65,7 +70,6 @@ export const Collection = ({ user }) => {
   };
 
   const handleDeleteClick = (evt) => {
-    console.log("hi");
     deleteDeck(evt.target.id).then(() => {
       getUserDecks(userId);
     });
@@ -195,7 +199,7 @@ export const Collection = ({ user }) => {
                   className="finish-button"
                   onClick={() => handleDoneClick()}
                 >
-                  Done
+                  Save
                 </button>
               ) : (
                 <button

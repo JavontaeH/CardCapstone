@@ -5,6 +5,8 @@ import Register from "./Register";
 import { MainMenu } from "./menu/MainMenu";
 import { Collection } from "./collection/Collection";
 import { Play } from "./game/Play";
+import { WebStone } from "./game/Webstone";
+import { PlayCard } from "./card/PlayCard";
 
 export default function ApplicationViews({ isLoggedIn, user }) {
   return (
@@ -22,6 +24,7 @@ export default function ApplicationViews({ isLoggedIn, user }) {
             path="play"
             element={isLoggedIn ? <Play /> : <Navigate to="/login" />}
           />
+          <Route path="play/webstone" element={<PlayCard />} />
           <Route path="*" element={<p>Whoops, nothing here...</p>} />
         </Route>
       </Routes>

@@ -12,5 +12,6 @@ namespace CardCapstone.Models
 
         public string Name { get; set; }
 
+
     }
 }
