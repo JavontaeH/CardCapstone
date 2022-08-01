@@ -24,7 +24,7 @@ export default function ApplicationViews({ isLoggedIn, user }) {
             path="play"
             element={isLoggedIn ? <Play /> : <Navigate to="/login" />}
           />
-          <Route path="play/webstone" element={<PlayCard />} />
+          <Route path="play/webstone" element={<WebStone />} />
           <Route path="*" element={<p>Whoops, nothing here...</p>} />
         </Route>
       </Routes>

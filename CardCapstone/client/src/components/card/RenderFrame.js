@@ -6,6 +6,8 @@ import belweMed from "../../static/BelweMediumBT.ttf";
 
 const parser = new Parser();
 
+//todo: MAKE FRAME LOWER
+
 export const RenderFrame = ({ children }) => (
   <svg style={{ width: "100%", height: "100%" }} viewBox="0 0 751 1041">
     <defs>

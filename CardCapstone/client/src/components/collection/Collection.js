@@ -34,7 +34,7 @@ export const Collection = ({ user }) => {
   }, []);
 
   //TODO: SCROLL TO BOTTOM WHEN CARD ADDED
-  //TODO: ADD USER INPUT VALIDATION... DECK NAME, AMT OF CARDS IN DECK TO PLAY.
+  //TODO: ADD USER INPUT VALIDATION... DECK NAME, 30 CARD LIMIT,
 
   const getUserDecks = (id) => {
     d.getAllUserDecks(id).then((decks) => {
@@ -48,7 +48,7 @@ export const Collection = ({ user }) => {
     });
   };
 
-  //TODO: change selectedDeck state to an obj of key:value pairs where the key is the cardId and the value is the amt of that card. and increment/decrement based on if the key
+  //TODO: change selectedDeck state to an obj of key:value pairs where the key is the cardId and the value is the amt of that card. and increment/decrement based on The key
   const handleCardClick = (card) => {
     if (selectedDeck) {
       let tempDeck = { ...selectedDeck };

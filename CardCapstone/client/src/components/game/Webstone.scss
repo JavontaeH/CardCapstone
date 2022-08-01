@@ -1,0 +1,182 @@
+.game-board {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.p2-side {
+  height: 50%;
+  width: 100%;
+}
+
+.p1-side {
+  height: 50%;
+  width: 100%;
+}
+
+.p2-ui {
+  width: 100%;
+  height: 50%;
+  display: flex;
+}
+
+.p2-hand {
+  width: 80%;
+  height: 100%;
+  margin-right: 5%;
+  margin-left: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.p2-deck {
+  height: 100%;
+  width: 15%;
+  background: url(../../../public/images/card-assets/card-back.png) center
+    center / contain no-repeat;
+  text-align: center;
+  font-family: Belwe;
+  color: white;
+  text-shadow: rgb(0 0 0) 2px 0px 0px, rgb(0 0 0) 1.75517px 0.95885px 0px,
+    rgb(0 0 0) 1.0806px 1.68294px 0px, rgb(0 0 0) 0.14147px 1.99499px 0px,
+    rgb(0 0 0) -0.83229px 1.81859px 0px, rgb(0 0 0) -1.60229px 1.19694px 0px,
+    rgb(0 0 0) -1.97998px 0.28224px 0px, rgb(0 0 0) -1.87291px -0.70157px 0px,
+    rgb(0 0 0) -1.30729px -1.5136px 0px, rgb(0 0 0) -0.42159px -1.95506px 0px,
+    rgb(0 0 0) 0.56732px -1.91785px 0px, rgb(0 0 0) 1.41734px -1.41108px 0px,
+    rgb(0 0 0) 1.92034px -0.55883px 0px;
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+}
+
+.p2-card {
+  height: 100%;
+  width: 10%;
+  background: url(../../../public/images/card-assets/card-back.png) center
+    center / contain no-repeat;
+}
+
+.p2-board {
+  height: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.p1-ui {
+  width: 100%;
+  height: 50%;
+  display: flex;
+}
+
+.p1-deck {
+  height: 100%;
+  width: 15%;
+  background: url(../../../public/images/card-assets/card-back.png) center
+    center / contain no-repeat;
+  text-align: center;
+  font-family: Belwe;
+  color: white;
+  text-shadow: rgb(0 0 0) 2px 0px 0px, rgb(0 0 0) 1.75517px 0.95885px 0px,
+    rgb(0 0 0) 1.0806px 1.68294px 0px, rgb(0 0 0) 0.14147px 1.99499px 0px,
+    rgb(0 0 0) -0.83229px 1.81859px 0px, rgb(0 0 0) -1.60229px 1.19694px 0px,
+    rgb(0 0 0) -1.97998px 0.28224px 0px, rgb(0 0 0) -1.87291px -0.70157px 0px,
+    rgb(0 0 0) -1.30729px -1.5136px 0px, rgb(0 0 0) -0.42159px -1.95506px 0px,
+    rgb(0 0 0) 0.56732px -1.91785px 0px, rgb(0 0 0) 1.41734px -1.41108px 0px,
+    rgb(0 0 0) 1.92034px -0.55883px 0px;
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+}
+
+.p1-hand {
+  width: 80%;
+  height: 100%;
+  margin-right: 20%;
+  margin-left: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+$total: 10;
+@for $i from 0 through ($total - 1) {
+  $hue: ($i / $total) * -360;
+  $rotationRange: 50;
+  $rotation: ($i - ($total - 1) / 2) / ($total - 2) * $rotationRange;
+  $offsetRange: 80;
+  $offset: abs(($i - ($total - 1) / 2) / ($total - 2) * $offsetRange);
+  .p1-card:nth-child(#{$i + 1}) {
+    .p1-card-face {
+      transform: translateY($offset * 1px) rotate($rotation * 1deg);
+    }
+
+    &:hover {
+      .p1-card-face {
+        transform: translateY(-100px) rotate(0deg) scale(3);
+        transition-duration: 200ms;
+        z-index: 5;
+        &:after {
+          animation: fade 250ms ease-out forwards;
+        }
+      }
+    }
+  }
+}
+
+.p1-card {
+  height: 150px;
+  margin: 0 -25px;
+  position: relative;
+  cursor: pointer;
+  width: 100px;
+  &:after {
+    // uncomment background below to see hit areas
+    //background: rgba(255, 0, 0, 0.15);
+    bottom: 0;
+    content: "";
+    left: -60px;
+    position: absolute;
+    right: -60px;
+    top: 0px;
+    z-index: 10;
+  }
+}
+
+.p1-card-face {
+  bottom: 0;
+  content: "";
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: 800ms cubic-bezier(0.19, 1, 0.22, 1) transform;
+  &:after {
+    animation: none;
+    background: #fff;
+    bottom: 0;
+    content: "";
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+.p1-board {
+  height: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.play-card {
+  width: 14%;
+  height: 25%;
+}

@@ -167,7 +167,6 @@
 }
 
 .selected-deck-btn-container {
-    align-self: center;
     display: flex;
     flex-direction: row;
     justify-content: space-around;

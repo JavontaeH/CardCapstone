@@ -17,18 +17,18 @@ import { CardElements } from "./CardElements";
 export const HearthCard = ({ card }) => {
   return (
     <RenderCard>
-      <Image id={card.imageLocation} clip />
+      <Image id={card?.imageLocation} clip />
       <Frame />
-      <Cost fontFamily="Belwe">{card.mana ? card.mana : "0"}</Cost>
-      <Race fontFamily="Belwe">{card.cardType?.name}</Race>
-      <Health fontFamily="Belwe">{card.hp}</Health>
-      <Strength fontFamily="Belwe">{card.atk}</Strength>
+      <Cost fontFamily="Belwe">{card?.mana ? card?.mana : "0"}</Cost>
+      <Race fontFamily="Belwe">{card?.cardType?.name}</Race>
+      <Health fontFamily="Belwe">{card?.hp}</Health>
+      <Strength fontFamily="Belwe">{card?.atk}</Strength>
       <Rarity id="common" />
       <Title fontFamily="Belwe" flow>
-        {card.name}
+        {card?.name}
       </Title>
       <Text rich fontfamily="BelweMed">
-        {card.description}
+        {card?.description}
       </Text>
     </RenderCard>
   );
