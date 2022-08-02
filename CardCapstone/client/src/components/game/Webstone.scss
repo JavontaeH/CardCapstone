@@ -1,6 +1,6 @@
 .game-board {
   width: 100vw;
-  height: 100vh;
+  height: 93vh;
   display: flex;
   flex-direction: column;
 }
@@ -54,8 +54,44 @@
 }
 
 .p2-card {
-  height: 100%;
-  width: 10%;
+  height: 150px;
+  margin: 0 -25px;
+  position: relative;
+  cursor: pointer;
+  width: 100px;
+  &:after {
+    // uncomment background below to see hit areas
+    //background: rgba(255, 0, 0, 0.15);
+    bottom: 0;
+    content: "";
+    left: -60px;
+    position: absolute;
+    right: -60px;
+    top: 0px;
+    z-index: 10;
+  }
+}
+
+.p2-card-face {
+  bottom: 0;
+  content: "";
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: 800ms cubic-bezier(0.19, 1, 0.22, 1) transform;
+  &:after {
+    animation: none;
+    background: #fff;
+    bottom: 0;
+    content: "";
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
   background: url(../../../public/images/card-assets/card-back.png) center
     center / contain no-repeat;
 }
@@ -108,7 +144,9 @@ $total: 10;
 @for $i from 0 through ($total - 1) {
   $hue: ($i / $total) * -360;
   $rotationRange: 50;
-  $rotation: ($i - ($total - 1) / 2) / ($total - 2) * $rotationRange;
+  $rotation: ($i - ($total - 1) / 2) /
+    ($total - 2) *
+    $rotationRange; //first card rotation range
   $offsetRange: 80;
   $offset: abs(($i - ($total - 1) / 2) / ($total - 2) * $offsetRange);
   .p1-card:nth-child(#{$i + 1}) {
@@ -125,6 +163,19 @@ $total: 10;
           animation: fade 250ms ease-out forwards;
         }
       }
+    }
+  }
+}
+
+@for $i from 0 through (10 - 1) {
+  $hue: ($i / $total) * -360;
+  $rotationRange: 0;
+  $rotation: ($i + ($total + 1) * 2) * ($total + 2) / $rotationRange;
+  $offsetRange: 80;
+  $offset: abs(($i + ($total + 1) * 2) * ($total + 2) / $offsetRange);
+  .p2-card:nth-child(#{$i - 1}) {
+    .p2-card-face {
+      transform: translateY($offset * 1px) rotate($rotation * 1deg);
     }
   }
 }
@@ -150,12 +201,13 @@ $total: 10;
 
 .p1-card-face {
   bottom: 0;
-  content: "";
   left: 0;
-  pointer-events: none;
   position: absolute;
   right: 0;
   top: 0;
+  content: "";
+  pointer-events: none;
+
   transition: 800ms cubic-bezier(0.19, 1, 0.22, 1) transform;
   &:after {
     animation: none;
@@ -177,6 +229,21 @@ $total: 10;
 }
 
 .play-card {
-  width: 14%;
-  height: 25%;
+  width: 12%;
+  height: 90%;
+  cursor: pointer;
+}
+
+.p1-profile {
+  margin-top: 50px;
+  height: 100px;
+  width: 100px;
+  align-self: center;
+  display: none;
+}
+
+.end-turn-btn {
+  position: absolute;
+  left: 90%;
+  top: 50%;
 }
