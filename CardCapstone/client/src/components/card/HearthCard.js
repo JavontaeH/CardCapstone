@@ -13,7 +13,6 @@ import {
   Race,
 } from "./RenderCard";
 import { CardElements } from "./CardElements";
-//TODO: CARD TITLE SHRINK TO FIT OR LESS CARD LENGTH
 export const HearthCard = ({ card }) => {
   return (
     <RenderCard>

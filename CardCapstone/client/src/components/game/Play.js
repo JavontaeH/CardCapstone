@@ -53,7 +53,11 @@ export const Play = ({ user }) => {
         alert("Please select a deck to edit.");
       }
     } else if (e.target.id === "play-btn") {
-      navigate("../play/webstone");
+      if (selectedDeck.id) {
+        navigate(`../play/webstone/${selectedDeck.id}/18`);
+      } else {
+        alert("Please select a deck to play.");
+      }
     } else if (e.target.id === "back-btn") {
       navigate("../");
     }

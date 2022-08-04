@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getDeckById } from "../../modules/deckManager";
 import { PlayCard } from "../card/PlayCard";
 import { HearthCard } from "../card/HearthCard";
@@ -18,37 +18,20 @@ export const WebStone = () => {
     mana: 1,
     deck: [],
     hand: [],
-    playCards: [
-      {
-        id: 4,
-        name: "Tar Creeper",
-        imageLocation: "/images/card-art/Tar_Creeper.png",
-        description:
-          "<b>Taunt</b><br> Has +2 Attack during your opponent's turn.",
-        mana: 3,
-        atk: 1,
-        hp: 5,
-        cardTypeId: 1,
-        cardType: {
-          id: 1,
-          name: "Normal",
-        },
-      },
-    ],
+    playCards: [],
   });
   const [gameStarted, setGameStarted] = useState(false);
   const [attackingCard, setAttackingCard] = useState(null);
   const [defendingCard, setDefendingCard] = useState(null);
   const [turn, setTurn] = useState(1);
+  const { p1DeckId, p2DeckId } = useParams();
 
   const navigate = useNavigate();
 
-  //TODO: make deck dynamic for p1
-  //TODO: change deck hover effect to even out better
   useEffect(() => {
     let promArr = [];
-    promArr.push(getDeckById(18));
-    promArr.push(getDeckById(2));
+    promArr.push(getDeckById(p1DeckId));
+    promArr.push(getDeckById(p2DeckId));
     Promise.all(promArr)
       .then((res) => {
         let tempP1 = { ...p1 };
@@ -110,24 +93,21 @@ export const WebStone = () => {
     }
   };
 
-  useEffect(() => {
-    if (gameStarted) {
-      draw(9, 1);
-      draw(4, 2);
-    }
-  }, [gameStarted]);
-
   const handleCardClick = (card, index) => {
     let temp = { ...p1 };
     if (turn % 2 !== 0) {
-      if (temp.mana - card.mana >= 0) {
-        temp.playCards.push(card);
-        temp.hand.splice(index, 1);
-        temp.mana = temp.mana - card.mana;
-        card.turnCount = 0;
-        card.hasAttacked = false;
+      if (p1.playCards.length < 7) {
+        if (temp.mana - card.mana >= 0) {
+          temp.playCards.push(card);
+          temp.hand.splice(index, 1);
+          temp.mana = temp.mana - card.mana;
+          card.turnCount = 0;
+          card.hasAttacked = false;
+        } else {
+          alert("You don't have enough mana to play that card.");
+        }
       } else {
-        alert("You don't have enough mana to play that card.");
+        alert("There can only be 7 minions in play.");
       }
     } else {
       alert("You can't play cards on your opponent's turn.");
@@ -159,6 +139,7 @@ export const WebStone = () => {
     setP1(temp);
   };
 
+  //  set defender or tell the player what the enemy card does if they are not trying to attack it
   const handleEnemyPlayCardClick = (card, index) => {
     if (attackingCard !== null) {
       card.index = index;
@@ -168,6 +149,7 @@ export const WebStone = () => {
     }
   };
 
+  // "check to see if player wants to attack"
   useEffect(() => {
     if (attackingCard !== null && defendingCard !== null) {
       defendingCard.hp = defendingCard.hp - attackingCard.atk;
@@ -184,6 +166,7 @@ export const WebStone = () => {
     }
   }, [defendingCard]);
 
+  // "game loop when playter ends turn"
   const handleEndTurn = (evt) => {
     setTurn(turn + 1);
     p1.playCards.forEach((card) => {
@@ -213,18 +196,82 @@ export const WebStone = () => {
     setP2(tempP2);
   };
 
+  const handlePortraitClick = () => {
+    if (attackingCard !== null) {
+      let temp = { ...p2 };
+      temp.hp = temp.hp - attackingCard.atk;
+      setP2(temp);
+    }
+  };
+
+  // very basic ai.
+  useEffect(() => {
+    if (turn % 2 === 0) {
+      // let temp = { ...p2 };
+      // for (let i = 0; i <= p2.hand.length; i++) {
+      //   let found = temp.hand.find((c) => c.mana <= temp.mana);
+      //   let index = temp.hand.findIndex((c) => c.mana <= temp.mana);
+
+      //   setTimeout(() => {
+      //     found.turnCount = 0;
+      //     found.hasAttacked = false;
+      //     temp.playCards.push(found);
+      //     temp.hand.splice(index, 1);
+      //     temp.mana = temp.mana - found.mana;
+      //   }, 200);
+      // }
+      setTimeout(() => {
+        handleEndTurn();
+      }, 2000);
+    }
+  }, [turn]);
+
+  // initial draw
+  useEffect(() => {
+    if (gameStarted) {
+      draw(3, 1);
+      draw(4, 2);
+    }
+  }, [gameStarted]);
+
   return (
     <div className="game-board">
       <div className="p2-side">
         <div className="p2-ui">
+          <div className="p2-portrait" onClick={handlePortraitClick}>
+            <div className="p2-hp">
+              <h2>{p2.hp}</h2>
+            </div>
+          </div>
           <div className="p2-hand">
             {p2.hand.map((card, index) => (
               <div className="p2-card" key={index + "p2Hand"}>
-                <div className="p2-card-face"></div>
+                <div
+                  className="p2-card-face"
+                  style={{ "--n-cards": p2.hand.length }}
+                ></div>
               </div>
             ))}
           </div>
           <div className="p2-deck">{p2.deck.deckCards?.length}</div>
+          <div className="p2-mana">
+            <div className="mana-label">{`${p2.mana}/10`} </div>{" "}
+            {(() => {
+              let arr = [];
+              for (let i = 1; i <= 10; i++) {
+                if (p2.mana >= i) {
+                  arr.push(
+                    <div key={i + "-mana"} className="active-mana"></div>
+                  );
+                } else {
+                  arr.push(
+                    <div key={i + "-mana"} className="empty-mana"></div>
+                  );
+                }
+              }
+              return arr;
+            })()}
+          </div>
         </div>
         <div className="p2-board">
           {p2.playCards.map((card, index) => (
@@ -238,9 +285,15 @@ export const WebStone = () => {
           ))}
         </div>
       </div>
-      <button className="end-turn-btn" onClick={handleEndTurn}>
-        End
-      </button>
+      {turn % 2 !== 0 ? (
+        <button className="end-turn-btn" onClick={handleEndTurn}>
+          End Turn
+        </button>
+      ) : (
+        <button disabled className="opponents-end-turn-btn">
+          Enemy Turn
+        </button>
+      )}
       <div className="p1-side">
         <div className="p1-board">
           {p1.playCards.map((card, index) => (
@@ -255,7 +308,11 @@ export const WebStone = () => {
         </div>
         <div className="p1-profile"></div>
         <div className="p1-ui">
-          <div className="p1-deck">{p1.deck.deckCards?.length}</div>
+          <div className="p1-portrait" onClick={handlePortraitClick}>
+            <div className="p1-hp">
+              <h2>{p1.hp}</h2>
+            </div>
+          </div>
           <div className="p1-hand">
             {p1.hand.map((card, index) => (
               <div
@@ -273,6 +330,25 @@ export const WebStone = () => {
                 </div>
               </div>
             ))}
+          </div>
+          <div className="p1-deck">{p1.deck.deckCards?.length}</div>
+          <div className="p1-mana">
+            <div className="mana-label">{`${p1.mana}/10`} </div>{" "}
+            {(() => {
+              let arr = [];
+              for (let i = 1; i <= 10; i++) {
+                if (p1.mana >= i) {
+                  arr.push(
+                    <div key={i + "-mana"} className="active-mana"></div>
+                  );
+                } else {
+                  arr.push(
+                    <div key={i + "-mana"} className="empty-mana"></div>
+                  );
+                }
+              }
+              return arr;
+            })()}
           </div>
         </div>
       </div>
