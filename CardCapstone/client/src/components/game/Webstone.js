@@ -28,6 +28,8 @@ export const WebStone = () => {
 
   const navigate = useNavigate();
 
+  //TODO: FINISH AI AND ADD WIN CONDITION POPUP THAT NAVIGATES BACK TO MAIN SCREEN ON CLICK
+
   useEffect(() => {
     let promArr = [];
     promArr.push(getDeckById(p1DeckId));
@@ -232,6 +234,15 @@ export const WebStone = () => {
       draw(4, 2);
     }
   }, [gameStarted]);
+
+  //win condition
+  useEffect(() => {
+    if (p1.hp <= 0) {
+      console.log("DEFEAT!");
+    } else if (p2.hp <= 0) {
+      console.log("VICTORY");
+    }
+  }, [p1, p2]);
 
   return (
     <div className="game-board">
