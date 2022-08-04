@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as d from "../../modules/deckManager.js";
-import * as c from "../../modules/cardManager.js";
-import { HearthCard } from "../card/HearthCard.js";
 import { DeckCard } from "../collection/DeckCard.js";
-import { deleteDeck } from "../../modules/deckManager";
 import { getLoggedInUser } from "../../modules/userProfileManager.js";
 
 import "./Play.css";
 
 export const Play = ({ user }) => {
   const [userDecks, setUserDecks] = useState([]);
-  const [userId, setUserId] = useState(0);
-  const [cards, setCards] = useState([]);
   const [selectedDeck, setSelectedDeck] = useState(false);
   const navigate = useNavigate();
 
@@ -22,19 +17,10 @@ export const Play = ({ user }) => {
     });
   };
 
-  const getCards = () => {
-    c.getAllCards().then((cards) => {
-      setCards(cards);
-    });
-  };
-
   useEffect(() => {
     getLoggedInUser().then((res) => {
-      setUserId(res.id);
       getUserDecks(res.id);
     });
-
-    getCards();
   }, []);
 
   const handleCollectionClick = (e) => {

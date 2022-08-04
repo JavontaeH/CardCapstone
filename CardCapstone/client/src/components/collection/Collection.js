@@ -33,9 +33,6 @@ export const Collection = ({ user }) => {
     }
   }, []);
 
-  //TODO: SCROLL TO BOTTOM WHEN CARD ADDED
-  //TODO: ADD USER INPUT VALIDATION... DECK NAME, 30 CARD LIMIT,
-
   const getUserDecks = (id) => {
     d.getAllUserDecks(id).then((decks) => {
       setUserDecks(decks);
@@ -48,14 +45,11 @@ export const Collection = ({ user }) => {
     });
   };
 
-  //TODO: change selectedDeck state to an obj of key:value pairs where the key is the cardId and the value is the amt of that card. and increment/decrement based on The key
   const handleCardClick = (card) => {
     if (selectedDeck) {
       let tempDeck = { ...selectedDeck };
       tempDeck.deckCards.push(card);
       setSelectedDeck(tempDeck);
-    } else {
-      console.log(card);
     }
   };
 
@@ -78,21 +72,25 @@ export const Collection = ({ user }) => {
 
   const handleDoneClick = () => {
     if (selectedDeck) {
-      if (selectedDeck.id) {
-        d.editDeck(selectedDeck).then(() => {
-          d.UpdateDeckCards(selectedDeck).then(() => {
-            getUserDecks(userId);
+      if (selectedDeck.name.length < 10) {
+        if (selectedDeck.id) {
+          d.editDeck(selectedDeck).then(() => {
+            d.UpdateDeckCards(selectedDeck).then(() => {
+              getUserDecks(userId);
+            });
+            setSelectedDeck(false);
+          });
+        } else {
+          d.addDeck(selectedDeck).then((res) => {
+            selectedDeck.id = res.id;
+            d.UpdateDeckCards(selectedDeck).then(() => {
+              getUserDecks(userId);
+            });
           });
           setSelectedDeck(false);
-        });
+        }
       } else {
-        d.addDeck(selectedDeck).then((res) => {
-          selectedDeck.id = res.id;
-          d.UpdateDeckCards(selectedDeck).then(() => {
-            getUserDecks(userId);
-          });
-        });
-        setSelectedDeck(false);
+        alert("Deck names are limited to 10 characters.");
       }
     } else {
       navigate("../");

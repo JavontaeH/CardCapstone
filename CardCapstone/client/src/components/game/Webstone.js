@@ -51,7 +51,7 @@ export const WebStone = () => {
       randomIndex;
 
     // While there remain elements to shuffle.
-    while (currentIndex != 0) {
+    while (currentIndex !== 0) {
       // Pick a remaining element.
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
@@ -185,7 +185,6 @@ export const WebStone = () => {
     } else {
       tempP1.mana = 10;
     }
-    console.log(tempP1.mana);
     setP1(tempP1);
     let tempP2 = { ...p2 };
     if (turn < 10) {
