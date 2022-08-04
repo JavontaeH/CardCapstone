@@ -12,11 +12,11 @@ Webstone is a full-stack web api that I created for my back-end capstone project
 
 ### Deck Collection
 
-![Battling Pokemon Demo](/demos/deck-creation.gif)
+![Battling Pokemon Demo](/Demos/deck-creation.gif)
 
 ### Gameplay
 
-![Battling Pokemon Demo](/demos/gameplay.gif)
+![Battling Pokemon Demo](/Demos/gameplay.gif)
 
 ## Getting Started
 
