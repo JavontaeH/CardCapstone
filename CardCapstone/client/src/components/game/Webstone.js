@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getDeckById } from "../../modules/deckManager";
 import { PlayCard } from "../card/PlayCard";
 import { HearthCard } from "../card/HearthCard";
+import { VictoryPopup } from "./VictoryPopup";
 import "./Webstone.scss";
 
 export const WebStone = () => {
@@ -25,8 +26,7 @@ export const WebStone = () => {
   const [defendingCard, setDefendingCard] = useState(null);
   const [turn, setTurn] = useState(1);
   const { p1DeckId, p2DeckId } = useParams();
-
-  const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
 
   //TODO: FINISH AI AND ADD WIN CONDITION POPUP THAT NAVIGATES BACK TO MAIN SCREEN ON CLICK
 
@@ -201,6 +201,8 @@ export const WebStone = () => {
     if (attackingCard !== null) {
       let temp = { ...p2 };
       temp.hp = temp.hp - attackingCard.atk;
+      attackingCard.hasAttacked = true;
+      setAttackingCard(null);
       setP2(temp);
     }
   };
@@ -238,9 +240,9 @@ export const WebStone = () => {
   //win condition
   useEffect(() => {
     if (p1.hp <= 0) {
-      console.log("DEFEAT!");
+      setIsOpen(!isOpen);
     } else if (p2.hp <= 0) {
-      console.log("VICTORY");
+      setIsOpen(!isOpen);
     }
   }, [p1, p2]);
 
@@ -362,6 +364,9 @@ export const WebStone = () => {
           </div>
         </div>
       </div>
+      {p2.hp <= 0
+        ? isOpen && <VictoryPopup victory={true} />
+        : isOpen && <VictoryPopup victory={false} />}
     </div>
   );
 };

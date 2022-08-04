@@ -68,6 +68,7 @@ main {
 }
 .p2-hp {
   position: absolute;
+  min-width: 34px;
   bottom: -12%;
   right: -8%;
   display: flex;
@@ -419,6 +420,7 @@ $total: 10;
     repeat;
 }
 .p1-hp {
+  min-width: 34px;
   position: absolute;
   bottom: -12%;
   right: -8%;
