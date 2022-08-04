@@ -253,17 +253,22 @@ export const WebStone = () => {
       }
       for (let i = 0; i < p2.playCards.length; i++) {
         if (p1.playCards.length > 0) {
-          if (p2.playCards[i].hasAttacked === false) {
+          if (
+            p2.playCards[i].hasAttacked === false
+            // p2.playCards[i].turnCount > 0
+          ) {
             setAttackingCard(p2.playCards[i]);
             setDefendingCard(p1.playCards[0]);
             console.log("hit");
           }
         } else if (
           p1.playCards.length <= 0 &&
-          p2.playCards[i].hasAttacked === false
+          p2.playCards[i].hasAttacked === false &&
+          p2.playCards[i].turnCount > 0
         ) {
-          setAttackingCard(p2.playCards[i]);
-          handlePortraitClick();
+          // setAttackingCard(p2.playCards[i]);
+          // handlePortraitClick();
+          console.log("I want to hit the player!");
         }
       }
       setTimeout(() => {
