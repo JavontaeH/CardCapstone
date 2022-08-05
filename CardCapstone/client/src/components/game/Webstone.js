@@ -238,7 +238,6 @@ export const WebStone = () => {
         let found = temp.hand.find((c) => c.mana <= temp.mana);
         let index = temp.hand.findIndex((c) => c.mana <= temp.mana);
 
-        // p2.hand.splice(index, 1);
         if (
           p2.playCards.length < 7 &&
           found !== undefined &&
@@ -251,26 +250,25 @@ export const WebStone = () => {
         index = -1;
         found = undefined;
       }
-      for (let i = 0; i < p2.playCards.length; i++) {
-        if (p1.playCards.length > 0) {
-          if (
-            p2.playCards[i].hasAttacked === false
-            // p2.playCards[i].turnCount > 0
-          ) {
-            setAttackingCard(p2.playCards[i]);
-            setDefendingCard(p1.playCards[0]);
-            console.log("hit");
-          }
-        } else if (
-          p1.playCards.length <= 0 &&
-          p2.playCards[i].hasAttacked === false &&
-          p2.playCards[i].turnCount > 0
-        ) {
-          // setAttackingCard(p2.playCards[i]);
-          // handlePortraitClick();
-          console.log("I want to hit the player!");
-        }
-      }
+      // for (let i = 0; i < p2.playCards.length; i++) {
+      //   if (p1.playCards.length > 0) {
+      //     if (
+      //       p2.playCards[i].hasAttacked === false
+      //       // p2.playCards[i].turnCount > 0
+      //     ) {
+      //       setAttackingCard(p2.playCards[i]);
+      //       setDefendingCard(p1.playCards[0]);
+      //       console.log("hit");
+      //     }
+      //   } else if (
+      //     p1.playCards.length <= 0 &&
+      //     p2.playCards[i].hasAttacked === false &&
+      //     p2.playCards[i].turnCount > 0
+      //   ) {
+      //     // setAttackingCard(p2.playCards[i]);
+      //     // handlePortraitClick();
+      //     console.log("I want to hit the player!");
+
       setTimeout(() => {
         handleEndTurn();
       }, 2000);
@@ -280,8 +278,8 @@ export const WebStone = () => {
   // initial draw
   useEffect(() => {
     if (gameStarted) {
-      draw(10, 1);
-      draw(10, 2);
+      draw(3, 1);
+      draw(4, 2);
     }
   }, [gameStarted]);
 
