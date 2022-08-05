@@ -153,18 +153,34 @@ export const WebStone = () => {
 
   // "check to see if player wants to attack"
   useEffect(() => {
-    if (attackingCard !== null && defendingCard !== null) {
-      defendingCard.hp = defendingCard.hp - attackingCard.atk;
-      attackingCard.hp = attackingCard.hp - defendingCard.atk;
-      attackingCard.hasAttacked = true;
-      if (defendingCard.hp <= 0) {
-        p2.playCards.splice(defendingCard.index, 1);
+    if (turn % 2 !== 0) {
+      if (attackingCard !== null && defendingCard !== null) {
+        defendingCard.hp = defendingCard.hp - attackingCard.atk;
+        attackingCard.hp = attackingCard.hp - defendingCard.atk;
+        attackingCard.hasAttacked = true;
+        if (defendingCard.hp <= 0) {
+          p2.playCards.splice(defendingCard.index, 1);
+        }
+        if (attackingCard.hp <= 0) {
+          p1.playCards.splice(attackingCard.index, 1);
+        }
+        setAttackingCard(null);
+        setDefendingCard(null);
       }
-      if (attackingCard.hp <= 0) {
-        p1.playCards.splice(attackingCard.index, 1);
+    } else {
+      if (attackingCard !== null && defendingCard !== null) {
+        defendingCard.hp = defendingCard.hp - attackingCard.atk;
+        attackingCard.hp = attackingCard.hp - defendingCard.atk;
+        attackingCard.hasAttacked = true;
+        if (defendingCard.hp <= 0) {
+          p1.playCards.splice(defendingCard.index, 1);
+        }
+        if (attackingCard.hp <= 0) {
+          p2.playCards.splice(attackingCard.index, 1);
+        }
+        setAttackingCard(null);
+        setDefendingCard(null);
       }
-      setAttackingCard(null);
-      setDefendingCard(null);
     }
   }, [defendingCard]);
 
@@ -198,31 +214,61 @@ export const WebStone = () => {
   };
 
   const handlePortraitClick = () => {
-    if (attackingCard !== null) {
+    if (attackingCard !== null && turn % 2 !== 0) {
       let temp = { ...p2 };
       temp.hp = temp.hp - attackingCard.atk;
       attackingCard.hasAttacked = true;
       setAttackingCard(null);
       setP2(temp);
+    } else if (attackingCard !== null && turn % 2 === 0) {
+      let temp = { ...p2 };
+      temp.hp = temp.hp - attackingCard.atk;
+      attackingCard.hasAttacked = true;
+      setAttackingCard(null);
+      setP1(temp);
+      console.log("hi");
     }
   };
 
   // very basic ai.
   useEffect(() => {
     if (turn % 2 === 0) {
-      // let temp = { ...p2 };
-      // for (let i = 0; i <= p2.hand.length; i++) {
-      //   let found = temp.hand.find((c) => c.mana <= temp.mana);
-      //   let index = temp.hand.findIndex((c) => c.mana <= temp.mana);
+      let temp = { ...p2 };
+      for (let i = 0; i <= p2.hand.length; i++) {
+        let found = temp.hand.find((c) => c.mana <= temp.mana);
+        let index = temp.hand.findIndex((c) => c.mana <= temp.mana);
 
-      //   setTimeout(() => {
-      //     found.turnCount = 0;
-      //     found.hasAttacked = false;
-      //     temp.playCards.push(found);
-      //     temp.hand.splice(index, 1);
-      //     temp.mana = temp.mana - found.mana;
-      //   }, 200);
-      // }
+        if (
+          p2.playCards.length < 7 &&
+          found !== undefined &&
+          temp.mana >= found.mana
+        ) {
+          p2.playCards.push(found);
+          p2.hand.splice(index, 1);
+          temp.mana = temp.mana - found.mana;
+        }
+        index = -1;
+        found = undefined;
+      }
+      // for (let i = 0; i < p2.playCards.length; i++) {
+      //   if (p1.playCards.length > 0) {
+      //     if (
+      //       p2.playCards[i].hasAttacked === false
+      //       // p2.playCards[i].turnCount > 0
+      //     ) {
+      //       setAttackingCard(p2.playCards[i]);
+      //       setDefendingCard(p1.playCards[0]);
+      //       console.log("hit");
+      //     }
+      //   } else if (
+      //     p1.playCards.length <= 0 &&
+      //     p2.playCards[i].hasAttacked === false &&
+      //     p2.playCards[i].turnCount > 0
+      //   ) {
+      //     // setAttackingCard(p2.playCards[i]);
+      //     // handlePortraitClick();
+      //     console.log("I want to hit the player!");
+
       setTimeout(() => {
         handleEndTurn();
       }, 2000);
