@@ -20,7 +20,7 @@ export const HearthCard = ({ card }) => {
       <Frame />
       <Cost fontFamily="Belwe">{card?.mana ? card?.mana : "0"}</Cost>
       <Race fontFamily="Belwe">{card?.cardType?.name}</Race>
-      <Health fontFamily="Belwe">{card?.hp}</Health>
+      <Health fontFamily="Belwe">{card?.hp ? card?.hp : "0"}</Health>
       <Strength fontFamily="Belwe">{card?.atk}</Strength>
       <Rarity id="common" />
       <Title fontFamily="Belwe" flow>

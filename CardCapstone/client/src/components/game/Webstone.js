@@ -71,7 +71,9 @@ export const WebStone = () => {
       let temp = { ...p1 };
       for (let i = 0; i < count; i++) {
         if (temp.deck.deckCards[0]) {
-          temp.hand.push(temp.deck.deckCards[0]);
+          if (temp.hand.length < 10) {
+            temp.hand.push(temp.deck.deckCards[0]);
+          }
           temp.deck.deckCards.splice(0, 1);
         } else {
           temp.hp = temp.hp - 1;
@@ -220,13 +222,6 @@ export const WebStone = () => {
       attackingCard.hasAttacked = true;
       setAttackingCard(null);
       setP2(temp);
-    } else if (attackingCard !== null && turn % 2 === 0) {
-      let temp = { ...p2 };
-      temp.hp = temp.hp - attackingCard.atk;
-      attackingCard.hasAttacked = true;
-      setAttackingCard(null);
-      setP1(temp);
-      console.log("hi");
     }
   };
 
@@ -243,6 +238,8 @@ export const WebStone = () => {
           found !== undefined &&
           temp.mana >= found.mana
         ) {
+          found.hasAttacked = false;
+          found.turnCount = 0;
           p2.playCards.push(found);
           p2.hand.splice(index, 1);
           temp.mana = temp.mana - found.mana;
@@ -253,21 +250,25 @@ export const WebStone = () => {
       // for (let i = 0; i < p2.playCards.length; i++) {
       //   if (p1.playCards.length > 0) {
       //     if (
-      //       p2.playCards[i].hasAttacked === false
-      //       // p2.playCards[i].turnCount > 0
+      //       p2.playCards[i].hasAttacked === false &&
+      //       p2.playCards[i].turnCount > 0
       //     ) {
       //       setAttackingCard(p2.playCards[i]);
       //       setDefendingCard(p1.playCards[0]);
-      //       console.log("hit");
+      //       console.log("hit card");
       //     }
       //   } else if (
       //     p1.playCards.length <= 0 &&
       //     p2.playCards[i].hasAttacked === false &&
       //     p2.playCards[i].turnCount > 0
       //   ) {
-      //     // setAttackingCard(p2.playCards[i]);
-      //     // handlePortraitClick();
-      //     console.log("I want to hit the player!");
+      //     let temp = { ...p1 };
+      //     p1.hp = p1.hp - p2.playCards[i].atk;
+      //     p2.playCards[i].hasAttacked = true;
+      //     // setP1(temp);
+      //     console.log("I hit the player!");
+      //   }
+      // }
 
       setTimeout(() => {
         handleEndTurn();
